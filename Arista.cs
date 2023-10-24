@@ -46,7 +46,7 @@ namespace Proyecto_Automatas
             
             if (n1 != n2)
             {
-                angle = Math.Atan2(n2.Coordenada.Y - n1.Coordenada.Y, n2.Coordenada.X - n1.Coordenada.X);
+                angle = Math.Atan2(n2.Centro.Y - n1.Centro.Y, n2.Centro.X - n1.Centro.X);
             }
             else// Si es un bucle, apuntar hacia el nodo desde un ángulo
             {
@@ -54,29 +54,29 @@ namespace Proyecto_Automatas
             }
 
             // Calcular la posición del final de la flecha
-            endX = (int)(n2.Coordenada.X - (Nodo.radio * Math.Cos(angle)));
-            endY = (int)(n2.Coordenada.Y - (Nodo.radio * Math.Sin(angle)));
+            endX = (int)(n2.Centro.X - (Nodo.radio * Math.Cos(angle)));
+            endY = (int)(n2.Centro.Y - (Nodo.radio * Math.Sin(angle)));
 
             // Dibujar la línea de la arista
             pen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
             if (n1 != n2)
             {
                 path.Reset();
-                path.AddLine(n1.Coordenada.X, n1.Coordenada.Y, endX, endY);
+                path.AddLine(n1.Centro.X, n1.Centro.Y, endX, endY);
                 g.DrawPath(pen, path);
                 // Calcular la posición para mostrar el valor en el medio de la arista
-                centerX = (n1.Coordenada.X + endX) / 2;
-                centerY = (n1.Coordenada.Y + endY) / 2 - 15;
+                centerX = (n1.Centro.X + endX) / 2;
+                centerY = (n1.Centro.Y + endY) / 2 - 15;
             }
             else
             {
                 // Si es un bucle, dibujar un arco curvado
                 int controlPointOffset = Nodo.radio * 3;  // Ajusta el tamaño del bucle
-                Point control = new Point(n1.Coordenada.X + controlPointOffset, n1.Coordenada.Y - controlPointOffset);
+                Point control = new Point(n1.Centro.X + controlPointOffset, n1.Centro.Y - controlPointOffset);
                 path.Reset();
-                path.AddBezier(n1.Coordenada.X, n1.Coordenada.Y, control.X, control.Y, n1.Coordenada.X - controlPointOffset, control.Y, n1.Coordenada.X, n1.Coordenada.Y);
+                path.AddBezier(n1.Centro.X, n1.Centro.Y, control.X, control.Y, n1.Centro.X - controlPointOffset, control.Y, n1.Centro.X, n1.Centro.Y);
                 g.DrawPath(pen, path);
-                centerX = n1.Coordenada.X;
+                centerX = n1.Centro.X;
                 centerY = control.Y + 20;
             }
 
