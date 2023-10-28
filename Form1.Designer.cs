@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             statusStrip1 = new StatusStrip();
             Barra_Archivo = new ToolStripSplitButton();
@@ -36,17 +37,17 @@
             guardarToolStripMenuItem = new ToolStripMenuItem();
             Barra_Probar = new ToolStripSplitButton();
             TabEditor = new TabPage();
-            Pizarra = new Panel();
             Barra_Editor = new StatusStrip();
             Editor_Seleccionar = new ToolStripDropDownButton();
             Editor_Agregar = new ToolStripDropDownButton();
             Editor_Eliminar = new ToolStripDropDownButton();
             Editor_Conectar = new ToolStripDropDownButton();
-            Tab = new TabControl();
+            TabEdicion = new TabControl();
+            timer1 = new System.Windows.Forms.Timer(components);
             statusStrip1.SuspendLayout();
             TabEditor.SuspendLayout();
             Barra_Editor.SuspendLayout();
-            Tab.SuspendLayout();
+            TabEdicion.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip1
@@ -101,7 +102,7 @@
             // 
             // TabEditor
             // 
-            TabEditor.Controls.Add(Pizarra);
+            TabEditor.BackColor = Color.White;
             TabEditor.Controls.Add(Barra_Editor);
             TabEditor.Location = new Point(4, 29);
             TabEditor.Margin = new Padding(3, 4, 3, 4);
@@ -110,19 +111,6 @@
             TabEditor.Size = new Size(1127, 646);
             TabEditor.TabIndex = 0;
             TabEditor.Text = "Editor";
-            TabEditor.UseVisualStyleBackColor = true;
-            // 
-            // Pizarra
-            // 
-            Pizarra.BackColor = Color.White;
-            Pizarra.Dock = DockStyle.Fill;
-            Pizarra.Location = new Point(3, 30);
-            Pizarra.Margin = new Padding(3, 4, 3, 4);
-            Pizarra.Name = "Pizarra";
-            Pizarra.Size = new Size(1121, 612);
-            Pizarra.TabIndex = 1;
-            Pizarra.Paint += Pizarra_Paint;
-            Pizarra.MouseClick += Pizarra_MouseClick;
             // 
             // Barra_Editor
             // 
@@ -181,16 +169,22 @@
             Editor_Conectar.Text = "Conectar";
             Editor_Conectar.Click += Editor_Conectar_Click;
             // 
-            // Tab
+            // TabEdicion
             // 
-            Tab.Controls.Add(TabEditor);
-            Tab.Dock = DockStyle.Fill;
-            Tab.Location = new Point(0, 26);
-            Tab.Margin = new Padding(3, 4, 3, 4);
-            Tab.Name = "Tab";
-            Tab.SelectedIndex = 0;
-            Tab.Size = new Size(1135, 679);
-            Tab.TabIndex = 1;
+            TabEdicion.Controls.Add(TabEditor);
+            TabEdicion.Dock = DockStyle.Fill;
+            TabEdicion.Location = new Point(0, 26);
+            TabEdicion.Margin = new Padding(3, 4, 3, 4);
+            TabEdicion.Name = "TabEdicion";
+            TabEdicion.SelectedIndex = 0;
+            TabEdicion.Size = new Size(1135, 679);
+            TabEdicion.TabIndex = 1;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // Form1
             // 
@@ -198,9 +192,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1135, 705);
-            Controls.Add(Tab);
+            Controls.Add(TabEdicion);
             Controls.Add(statusStrip1);
-            DoubleBuffered = true;
             Name = "Form1";
             Text = "Diseñador";
             statusStrip1.ResumeLayout(false);
@@ -209,7 +202,7 @@
             TabEditor.PerformLayout();
             Barra_Editor.ResumeLayout(false);
             Barra_Editor.PerformLayout();
-            Tab.ResumeLayout(false);
+            TabEdicion.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -226,9 +219,9 @@
         private StatusStrip Barra_Editor;
         private ToolStripDropDownButton Editor_Seleccionar;
         private ToolStripDropDownButton Editor_Agregar;
-        private TabControl Tab;
+        private TabControl TabEdicion;
         private ToolStripDropDownButton Editor_Eliminar;
         private ToolStripDropDownButton Editor_Conectar;
-        public Panel Pizarra;
+        private System.Windows.Forms.Timer timer1;
     }
 }
