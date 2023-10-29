@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             statusStrip1 = new StatusStrip();
             Barra_Archivo = new ToolStripSplitButton();
@@ -43,7 +42,6 @@
             Editor_Eliminar = new ToolStripDropDownButton();
             Editor_Conectar = new ToolStripDropDownButton();
             TabEdicion = new TabControl();
-            timer1 = new System.Windows.Forms.Timer(components);
             statusStrip1.SuspendLayout();
             TabEditor.SuspendLayout();
             Barra_Editor.SuspendLayout();
@@ -180,12 +178,6 @@
             TabEdicion.Size = new Size(1135, 679);
             TabEdicion.TabIndex = 1;
             // 
-            // timer1
-            // 
-            timer1.Enabled = true;
-            timer1.Interval = 1;
-            timer1.Tick += timer1_Tick;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -194,6 +186,7 @@
             ClientSize = new Size(1135, 705);
             Controls.Add(TabEdicion);
             Controls.Add(statusStrip1);
+            DoubleBuffered = true;
             Name = "Form1";
             Text = "Diseñador";
             statusStrip1.ResumeLayout(false);
@@ -222,6 +215,5 @@
         private TabControl TabEdicion;
         private ToolStripDropDownButton Editor_Eliminar;
         private ToolStripDropDownButton Editor_Conectar;
-        private System.Windows.Forms.Timer timer1;
     }
 }

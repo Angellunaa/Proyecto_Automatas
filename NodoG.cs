@@ -101,20 +101,11 @@ namespace Proyecto_Automatas
                     string valor = Interaction.InputBox("Ingrese el valor para la arista:", "Valor de la arista", "");//Pregunta por valor de la arista
 
                     //Se crea una arista dependiendo el tipo
-                    AristaG a;
-                    if (this == actual)
-                    {
-                        a = new Bucle(this, valor);
-                    }
-                    else
-                    {
-                        a = new Linea(actual, this, valor);//Otro tipo
-                    }
+                    AristaG a = new AristaG(actual, this, valor);
                     pizarra._listaAristas.Add(a);//Agrego la nueva arista a la lista
-                    pizarra.Controls.Add(a);//Agrego el control de la arista
-                    a.Mover(centro);//Le doy la nueva ubicacion
                     actual.ColorFondo = Color.Gold;
                     actual.Dibujar();//Dibuja el nodo en su color original
+                    pizarra.Invalidate();//Dibuja las aristas
                     actual = null;
                 }
                 else//Si no existe lo guardamos
@@ -134,6 +125,7 @@ namespace Proyecto_Automatas
                     }
                 }
                 pizarra._listaNodos.Remove(this);//Saco el nodo de la lista de nodos
+                pizarra.Controls.Remove(this);//Saca el nodo de la pizarra
                 this.Dispose();//Destruyo el nodo
             }
         }
@@ -158,15 +150,29 @@ namespace Proyecto_Automatas
             pizarra = Parent as Pizarra;
             if (down)
             {
+                Cursor = Pizarra.Agarrar;//Cambia el cursor
                 //Actualizo la posicion del control y del centro del nodo
                 this.Left = e.X + this.Left - inicio.X;
                 this.Top = e.Y + this.Top - inicio.Y;
                 centro.X = Location.X + radio;
                 centro.Y = Location.Y + radio;
-                foreach (AristaG a in pizarra._listaAristas)
-                {
-                    a.Mover(centro);//Mueve todas las aristas del nodo
-                }
+                pizarra.Invalidate();
+            }
+            else if (pizarra._estado == 1)
+            {
+                Cursor = Cursors.Hand;
+            }
+            else if (pizarra._estado == 2)
+            {
+                Cursor = Cursors.No;
+            }
+            else if (pizarra._estado == 3)
+            {
+                Cursor = Pizarra.Eliminar;
+            }
+            else
+            {
+                Cursor=Cursors.Default;
             }
         }
 
@@ -178,6 +184,18 @@ namespace Proyecto_Automatas
                 down = false;
                 ColorFondo = Color.Gold;//Cambia a su color anterior
                 Dibujar();
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e){}
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var parms = base.CreateParams;
+                parms.Style &= ~0x02000000;  // Turn off WS_CLIPCHILDREN
+                return parms;
             }
         }
     }

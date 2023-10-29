@@ -19,13 +19,11 @@ namespace Proyecto_Automatas
         Pizarra pizarra;
 
         //Metodos
-
-        public Form1()
+        public Form1()//Constructor
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;//Abre la pantalla completa al inicializar la aplicacion
             Editor_Seleccionar.BackColor = Color.SkyBlue;
-            //SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             pizarra = new Pizarra();//Creo la pizarra
             TabEditor.Controls.Add(pizarra);//Agrego la pizarra
         }
@@ -67,9 +65,7 @@ namespace Proyecto_Automatas
             Editor_Conectar.BackColor = Color.SkyBlue;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            pizarra.Invalidate();
-        }
+        protected override void OnPaint(PaintEventArgs e) { }
+
     }
 }
