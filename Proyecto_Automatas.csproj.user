@@ -7,6 +7,9 @@
     <Compile Update="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MenuCNodo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="NodoG.cs">
       <SubType>Component</SubType>
     </Compile>

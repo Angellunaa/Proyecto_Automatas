@@ -13,12 +13,13 @@ namespace Proyecto_Automatas
         //Atributos
         private NodoG n1;
         private NodoG n2;
-        public short Tipo; //0
+        public short Tipo; //0 linea, 1 Arco, 2 Bucle
 
         //Metodos de la interface
         public INodo NodoInicio { get; set; }
         public INodo NodoFinal { get; set; }
         public string Valor { get; set; }
+
         //Atributos graficos
         protected GraphicsPath path { get; set; }
         protected Pen pen { get; set; }
@@ -55,6 +56,13 @@ namespace Proyecto_Automatas
             }
         }
 
+        public bool EsIgual(AristaG otraArista)//Determina si dos aristas son iguales
+        {
+            if(otraArista == null) { return false; }
+            else if(n1 == otraArista.n1 && n2 == otraArista.n2 && Valor == otraArista.Valor) return true;
+            else return false; 
+        }
+
         public void DibujarLinea(Graphics g)
         {
             //Variables
@@ -81,9 +89,9 @@ namespace Proyecto_Automatas
             // Calcular las coordenadas de los puntos de la flecha
             Point[] arrowPoints = new Point[]
             {
-            new Point(endX, endY),
-            new Point((int)(endX - arrowLength * Math.Cos(angle - arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle - arrowAngle))),
-            new Point((int)(endX - arrowLength * Math.Cos(angle + arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle + arrowAngle)))
+                new Point(endX, endY),
+                new Point((int)(endX - arrowLength * Math.Cos(angle - arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle - arrowAngle))),
+                new Point((int)(endX - arrowLength * Math.Cos(angle + arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle + arrowAngle)))
             };
 
             // Dibujar la flecha
@@ -126,9 +134,9 @@ namespace Proyecto_Automatas
             // Calcular las coordenadas de los puntos de la flecha
             Point[] arrowPoints = new Point[]
             {
-            new Point(endX, endY),
-            new Point((int)(endX - arrowLength * Math.Cos(angle - arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle - arrowAngle))),
-            new Point((int)(endX - arrowLength * Math.Cos(angle + arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle + arrowAngle)))
+                new Point(endX, endY),
+                new Point((int)(endX - arrowLength * Math.Cos(angle - arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle - arrowAngle))),
+                new Point((int)(endX - arrowLength * Math.Cos(angle + arrowAngle)), (int)(endY - arrowLength * Math.Sin(angle + arrowAngle)))
             };
 
             // Dibujar la flecha
@@ -137,7 +145,8 @@ namespace Proyecto_Automatas
             g.FillPolygon(Brushes.Black, arrowPoints);
 
             // Dibujar el valor en el medio de la arista
-            g.DrawString(Valor, font, Brushes.Black, n1.Centro.X - font.Size / 2, control.Y + 25 - font.Size / 2);
+            SizeF textSize = g.MeasureString(Valor, font);
+            g.DrawString(Valor, font, Brushes.Black, n1.Centro.X - (textSize.Width / 2), control.Y + 15 - font.Size / 2);
         }
 
         public bool EstaDentro(Point click)

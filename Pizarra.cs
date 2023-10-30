@@ -39,9 +39,7 @@ namespace Proyecto_Automatas
             Paint += Pizarra_Paint;
         }
 
-        
-
-        private void Pizarra_MouseClick(object sender, MouseEventArgs e)
+        private void Pizarra_MouseClick(object? sender, MouseEventArgs e)
         {
             switch (estado)
             {
@@ -53,13 +51,12 @@ namespace Proyecto_Automatas
                     nodo.Dibujar();
                     break;
                 case 3://Eliminar
+
                     foreach(AristaG a in listaAristas)
                     {
-                        if (a.EstaDentro(e.Location))
-                        {
-                            listaAristas.Remove(a);
-                        }
+                        if (a.EstaDentro(e.Location)) listaAristas.Remove(a);
                     }
+
                     Invalidate();
                     break;
             }
@@ -81,18 +78,9 @@ namespace Proyecto_Automatas
             Graphics g = e.Graphics;
             foreach (AristaG a in listaAristas)
             {
-                if(a.Tipo == 0)//Linea
-                {
-                    a.DibujarLinea(g);
-                }
-                else if(a.Tipo == 1)//Arco
-                {
-
-                }
-                else//Bucle
-                {
-                    a.DibujarBucle(g);
-                }
+                if (a.Tipo == 0) a.DibujarLinea(g); //Linea
+                else if (a.Tipo == 1) { }//Arco
+                else a.DibujarBucle(g); //Bucle
             }
         }        
     }

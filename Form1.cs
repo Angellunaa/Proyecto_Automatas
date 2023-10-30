@@ -16,7 +16,7 @@ namespace Proyecto_Automatas
          */
 
         //Atributos
-        Pizarra pizarra;
+        private Pizarra pizarra;
 
         //Metodos
         public Form1()//Constructor
@@ -66,6 +66,5 @@ namespace Proyecto_Automatas
         }
 
         protected override void OnPaint(PaintEventArgs e) { }
-
     }
 }
