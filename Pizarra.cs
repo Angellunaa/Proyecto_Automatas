@@ -50,11 +50,13 @@ namespace Proyecto_Automatas
                     Controls.Add(nodo);
                     nodo.Dibujar();
                     break;
+
                 case 3://Eliminar
 
                     foreach(AristaG a in listaAristas)
                     {
                         if (a.EstaDentro(e.Location)) listaAristas.Remove(a);
+                        break;
                     }
 
                     Invalidate();
@@ -63,6 +65,7 @@ namespace Proyecto_Automatas
         }
 
         // ----------------------------------------------------------- Dibujo de Automata -----------------------------------------------------
+        
         protected override CreateParams CreateParams //Ayuda a minimizar el parpadeo
         {
             get
@@ -78,8 +81,8 @@ namespace Proyecto_Automatas
             Graphics g = e.Graphics;
             foreach (AristaG a in listaAristas)
             {
-                if (a.Tipo == 0) a.DibujarLinea(g); //Linea
-                else if (a.Tipo == 1) { }//Arco
+                if (a.Tipo == 0) a.DibujarArco(g); //Linea
+                else if (a.Tipo == 1) a.DibujarArco(g);//Arco
                 else a.DibujarBucle(g); //Bucle
             }
         }        

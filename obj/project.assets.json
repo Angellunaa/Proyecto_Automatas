@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas fucion\\Proyecto_Automatas.csproj",
+      "projectUniqueName": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas\\Proyecto_Automatas.csproj",
       "projectName": "Proyecto_Automatas",
-      "projectPath": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas fucion\\Proyecto_Automatas.csproj",
+      "projectPath": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas\\Proyecto_Automatas.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas fucion\\obj\\",
+      "outputPath": "C:\\Users\\angel\\OneDrive\\Documentos\\Universidad\\Autómatas\\Proyecto_Automatas\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

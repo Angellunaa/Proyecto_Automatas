@@ -102,16 +102,10 @@ namespace Proyecto_Automatas
         public void Eliminar()
         {
             pizarra = Parent as Pizarra;
-            foreach (AristaG a in pizarra._listaAristas)//Elimina todas las aristas conectadas al nodo
-            {
-                if (a.NodoInicio == this || a.NodoFinal == this)//Busca todas las aristas conectadas al nodo
-                {
-                    pizarra._listaAristas.Remove(a);//Elimino todas las aristas que conectan al nodo
-                }
-            }
+            pizarra._listaAristas.RemoveAll(a => a.NodoInicio == this || a.NodoFinal == this);//Elimino todas las aristas que conectan al nodo
             pizarra._listaNodos.Remove(this);//Saco el nodo de la lista de nodos
             pizarra.Controls.Remove(this);//Saca el nodo de la pizarra
-            this.Dispose();//Destruyo el nodo
+            this.Dispose();//Libero recursos del nodo
         }
 
         public void Ctr_MouseClick(object? sender, MouseEventArgs e)
@@ -121,11 +115,11 @@ namespace Proyecto_Automatas
             {
                 if (actual != null)//Si ya existe un nodo elegido
                 {
-                    bool Existe = false;
+                    bool Existe = false;//Guarda si ya existe la arista
                     string valor = Interaction.InputBox("Ingrese el valor para la arista:", "Valor de la arista", "λ");//Pregunta por valor de la arista
                     valor = string.IsNullOrWhiteSpace(valor)? "λ" : valor;
 
-                    //Se crea una arista dependiendo el tipo
+                    //Se crea una arista
                     AristaG arista = new AristaG(actual, this, valor);
                     foreach(AristaG a in pizarra._listaAristas)
                     {
@@ -148,7 +142,6 @@ namespace Proyecto_Automatas
                     Dibujar();
                 }
             }
-            else if (pizarra._estado == 3) Eliminar(); //Eliminar nodo
         }
 
         private void Ctr_MouseDown(object? sender, MouseEventArgs e)
@@ -168,7 +161,7 @@ namespace Proyecto_Automatas
             else//Click derecho
             {
                 // Crea un nuevo menú contextual
-                ContextMenuStrip contextMenu = new MenuCNodo(this); ;//Menu contextual del nodo
+                ContextMenuStrip contextMenu = new MenuCNodo(this); //Menu contextual del nodo
                 this.ContextMenuStrip = contextMenu;// Asocia el menú contextual al nodo (por ejemplo, un formulario)
             }
         }
@@ -194,11 +187,15 @@ namespace Proyecto_Automatas
         private void Ctr_MouseUp(object? sender, MouseEventArgs e)
         {
             pizarra = Parent as Pizarra;
-            if (pizarra._estado == 1)
+            if(e.Button == MouseButtons.Left)//Verifica si es el click derecho
             {
-                down = false;
-                ColorFondo = Color.Gold;//Cambia a su color anterior
-                Dibujar();
+                if (pizarra._estado == 1)
+                {
+                    down = false;
+                    ColorFondo = Color.Gold;//Cambia a su color anterior
+                    Dibujar();
+                }
+                else if (pizarra._estado == 3) Eliminar(); //Eliminar nodo
             }
         }
 
