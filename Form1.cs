@@ -36,6 +36,11 @@ namespace Proyecto_Automatas
             Editor_Agregar.BackColor = Color.Transparent;
             Editor_Eliminar.BackColor = Color.Transparent;
             Editor_Conectar.BackColor = Color.Transparent;
+            if(NodoG.conectar is not null)
+            {
+                NodoG.conectar.Dibujar();
+                NodoG.conectar = null;
+            }
         }
 
         private void Editor_Agregar_Click(object sender, EventArgs e)
@@ -45,6 +50,11 @@ namespace Proyecto_Automatas
             Editor_Agregar.BackColor = Color.SkyBlue;
             Editor_Eliminar.BackColor = Color.Transparent;
             Editor_Conectar.BackColor = Color.Transparent;
+            if (NodoG.conectar is not null)
+            {
+                NodoG.conectar.Dibujar();
+                NodoG.conectar = null;
+            }
         }
 
         private void Editor_Eliminar_Click(object sender, EventArgs e)
@@ -54,6 +64,11 @@ namespace Proyecto_Automatas
             Editor_Agregar.BackColor = Color.Transparent;
             Editor_Eliminar.BackColor = Color.SkyBlue;
             Editor_Conectar.BackColor = Color.Transparent;
+            if (NodoG.conectar is not null)
+            {
+                NodoG.conectar.Dibujar();
+                NodoG.conectar = null;
+            }
         }
 
         private void Editor_Conectar_Click(object sender, EventArgs e)

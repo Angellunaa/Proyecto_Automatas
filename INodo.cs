@@ -9,7 +9,6 @@ namespace Proyecto_Automatas
     public interface INodo
     {
         public string Nombre { get; set; }
-        public bool Inicial {  get; set; }
         public bool Final { get; set; }
     }
 }

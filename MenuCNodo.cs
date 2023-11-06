@@ -23,7 +23,8 @@ namespace Proyecto_Automatas
             Items.Add(ItemFinal);
 
             ItemInicial = new ToolStripMenuItem("Inicial");
-            ItemInicial.Checked = nodo.Inicial ? true : false;
+            if(nodo.pizarra.NodoInicial != null) ItemInicial.Checked = nodo == nodo.pizarra.NodoInicial ? true : false;
+            else ItemInicial.Checked = false;
             Items.Add(ItemInicial);
 
             ItemNombre = new ToolStripMenuItem("Cambiar nombre");
@@ -58,25 +59,8 @@ namespace Proyecto_Automatas
 
         private void ItemInicial_Click(object? sender, EventArgs e)
         {
-            INodo? Ninicial = null;
-            Pizarra pizarra = nodo.Parent as Pizarra;
-
-            foreach(NodoG n in pizarra._listaNodos)
-            {
-                if(n.Inicial)
-                {
-                    Ninicial = n;
-                    break;
-                }
-            }
-
-            if(Ninicial != null )
-            {
-                Ninicial.Inicial = false;
-                nodo.Inicial = true;
-            }
-            else { nodo.Inicial = true;}
-            nodo.Dibujar();
+            nodo.pizarra.NodoInicial = nodo;
+            nodo.pizarra.Invalidate();
         }
 
         private void ItemNombre_Click(object? sender, EventArgs e)
@@ -87,6 +71,7 @@ namespace Proyecto_Automatas
                 nodo.Nombre = valor;
                 nodo.Dibujar();
             }
+            nodo.Nombre = valor;
         }
 
         private void ItemEliminar_Click(object? sender, EventArgs e)

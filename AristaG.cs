@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.DataFormats;
 
 namespace Proyecto_Automatas
 {
@@ -18,12 +20,13 @@ namespace Proyecto_Automatas
         //Atributos
         private NodoG n1;
         private NodoG n2;
+        HashSet<string> valores = new HashSet<string>();
         public short Tipo; //0 linea, 1 Arco, 2 Bucle
 
         //Metodos de la interface
         public INodo NodoInicio { get; set; }
         public INodo NodoFinal { get; set; }
-        public string Valor { get; set; }
+        public HashSet<string> Valores { get { return valores; } set { value = valores; } }
 
         //Atributos graficos
         protected GraphicsPath path { get; set; }
@@ -41,7 +44,7 @@ namespace Proyecto_Automatas
         {
             this.NodoInicio = nodoinicial;
             this.NodoFinal = nodofinal;
-            this.Valor = valor;
+            this.Valores.Add(valor);
             grosor = 2;
             color = Color.Black;
             familiafuente = "Arial";
@@ -54,148 +57,142 @@ namespace Proyecto_Automatas
             n1 = nodoinicial;
             n2 = nodofinal;
 
-            if(n1 != n2)
-            {
-                Tipo = 0;
-            }
-            else
-            {
-                Tipo = 3;
-            }
+            if(n1 == n2) Tipo = 2;//Bucle
+            else Tipo = 0;//Linea
         }
 
-        public bool EsIgual(AristaG otraArista)//Determina si dos aristas son iguales
+        public bool EsIgual(AristaG otraArista)//Determina si dos aristas tienen nodo inicial y final igual
         {
             if(otraArista == null) { return false; }
-            else if(n1 == otraArista.n1 && n2 == otraArista.n2 && Valor == otraArista.Valor) return true;
+            else if(n1 == otraArista.n1 && n2 == otraArista.n2) return true;
             else return false; 
         }
 
-        public void DibujarLinea(Graphics g)
+        public bool EstaDentro(Point click)//Determina si se hace un clic sobre la arista
         {
-            //Variables
-            int centerX;
-            int centerY;
+            //La tolerancia es el segundo valor de la pluma (pen)
+            return path.IsOutlineVisible(click, new Pen(Color.Black, 10));
+        }
+
+        //------------------------------------------------------------- Metodos de dibujo -------------------------------------------------------------------------
+
+        public void DibujarLinea(Graphics g)//Dibuja una arista con forma lineal
+        {
+            Point medio = new Point((n1.Centro.X + n2.Centro.X) / 2, (n1.Centro.Y + n2.Centro.Y) / 2);// Calcular la posición en el medio de la arista
             double dx = n2.Centro.X - n1.Centro.X; //Diferencial de x
             double dy = n2.Centro.Y - n1.Centro.Y; //Diferencial de y
-            double angle = Math.Atan2(dy, dx);//Angulo de la flecha en radianes
+            double length = Math.Sqrt(dx * dx + dy * dy); //Calcula la distancia entre el nodo inicial y el final
+            double angle = Math.Atan2(dy, dx); //Angulo de la flecha en radianes
             int cos = (int)(NodoG.radio * Math.Cos(angle));
             int sen = (int)(NodoG.radio * Math.Sin(angle));
 
             // Calcular la posición inicial y final de la flecha
-            int startX = n1.Centro.X - cos;
-            int startY = n1.Centro.Y - sen;
-            int endX = n2.Centro.X - cos;
-            int endY = n2.Centro.Y - sen;
+            Point start = new Point(n1.Centro.X + cos, n1.Centro.Y + sen);
+            Point end = new Point(n2.Centro.X - cos, n2.Centro.Y - sen);
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;//Mejora la calidad de imagen
-            pen.StartCap = LineCap.Flat;
-            pen.CustomEndCap = flecha; //Crea la cabeza de la flecha
-            
             //Reseteo el path, le agrego la flecha y la dibujo
+            pen.StartCap = LineCap.Flat; //indica como sera el inicio de la linea
+            pen.CustomEndCap = flecha; //Crea la cabeza de la flecha
+
             path.Reset();
-            path.AddLine(startX, startY, endX, endY);
+            path.AddLine(start.X, start.Y, end.X, end.Y);
             g.DrawPath(pen, path);
 
-            // Calcular la posición para mostrar el valor en el medio de la arista
-            centerX = (n1.Centro.X + n2.Centro.X) / 2;
-            centerY = (n1.Centro.Y + n2.Centro.Y) / 2;
-
-            /*//Calculo la rotacion de la arista
-            Matrix originalTransform = g.Transform;//Guardo el estado de la pizarra
-            g.TranslateTransform(centerX, centerY); // Mover al centro
-            
-            angle = (Math.PI / 2 < Math.Abs(angle) && Math.Abs(angle) < Math.PI) ? Math.PI - angle : angle;
-            float nuevoang = (float)(angle * (180 / Math.PI));
-            g.RotateTransform(nuevoang); // Rotar
-            g.TranslateTransform(-centerX, -centerY); // Mover de regreso al origen
-            */
-
             // Calcula las coordenadas del punto en la línea perpendicular
-            dx = -1 * (n2.Centro.Y - n1.Centro.Y);
-            dy = (n2.Centro.X - n1.Centro.X);
-            double length = Math.Sqrt(dx * dx + dy * dy);// Calcula el vector perpendicular (en este caso, simplemente invierte las coordenadas x e y)
+            dx = -1 * dy;
+            dy = n2.Centro.X - n1.Centro.X;
             dx = dx / length;
             dy = dy / length;
 
-            SizeF textSize = g.MeasureString(Valor, font);
-            int perpendicularX = (int)(centerX - (dx * textSize.Width));
-            int perpendicularY = (int)(centerY - (dy * textSize.Height));
+            //Angulo de la palabra
+            float nuevoangulo = ((angle>=-Math.PI && angle < -Math.PI/2) || (angle >= Math.PI / 2 && angle <= Math.PI)) ? (float)(-Math.PI + angle) : (float)angle;
+            nuevoangulo = (float)(nuevoangulo * (180 / Math.PI));//Convierto el angulo a grados
+            int sep = 24; //Separacion entre cada palabra
+            float sepin = font.Size; //Separacion entre la linea y primer valor
+            StringFormat Formato = new StringFormat();//Formate de la cadena
+            Formato.Alignment = StringAlignment.Center; //Alinea en el centro horizontal
+            Formato.LineAlignment = StringAlignment.Center; //Alinea en el centro vertical
 
-            RectangleF r = new RectangleF(perpendicularX - 2, perpendicularY - 2, textSize.Width, textSize.Height);
-            g.DrawString(Valor, font, Brushes.Black, r);
-
-            //g.Transform = originalTransform;//Regreso la pizarra a la normalidad
+            //Dibujo de los valores de la arista
+            for (int i = 0; i < valores.Count; i++)
+            {
+                string v = valores.ElementAt(i);
+                g.TranslateTransform((float)(medio.X - dx * (sep * i + sepin)), (float)(medio.Y - dy * (sep * i + sepin)));
+                g.RotateTransform((float)nuevoangulo);
+                g.DrawString(v, font, Brushes.Black, Point.Empty, Formato);
+                g.ResetTransform();
+            }
         }
 
-        public void DibujarArco(Graphics g)
+        public void DibujarArco(Graphics g)//Dibuja una arista con forma de arco
         {
-            //Variables
-            int altura = 50; //Altura del arco
+            int altura = 40;//Altura del arco
+            Point medio = new Point((n1.Centro.X + n2.Centro.X) / 2, (n1.Centro.Y + n2.Centro.Y) / 2);// Calcular la posición en el medio de la arista
             double dx = n2.Centro.X - n1.Centro.X; //Diferencial de x
             double dy = n2.Centro.Y - n1.Centro.Y; //Diferencial de y
-            double angle = Math.Atan2(dy, dx);//Angulo de la flecha en radianes
+            double length = Math.Sqrt(dx * dx + dy * dy); //Calcula la distancia entre el nodo inicial y el final
+            double angle = Math.Atan2(dy, dx); //Angulo de la flecha en radianes
             int cos = (int)(NodoG.radio * Math.Cos(angle));
             int sen = (int)(NodoG.radio * Math.Sin(angle));
 
             // Calcular la posición inicial y final de la flecha
-            Point start = new Point(n1.Centro.X - cos, n1.Centro.Y - sen);
+            //Point start = new Point(n1.Centro.X + cos, n1.Centro.Y + sen);
             Point end = new Point(n2.Centro.X - cos, n2.Centro.Y - sen);
 
             // Calcula las coordenadas del punto en la línea perpendicular
-            dx = -1 * (n2.Centro.Y - n1.Centro.Y);
-            dy = (n2.Centro.X - n1.Centro.X);
-            double length = Math.Sqrt(dx * dx + dy * dy);//Distancia entre el primer y segundo nodo
+            dx = -1 * dy;
+            dy = n2.Centro.X - n1.Centro.X;
             dx = dx / length;
             dy = dy / length;
 
-            // Calcular la posición de la mitad de la arista
-            Point medio = new Point((n1.Centro.X + n2.Centro.X) / 2, (n1.Centro.Y + n2.Centro.Y) / 2 - altura);
-
-            SizeF textSize = g.MeasureString(Valor, font);
-            int perpendicularX = (int)(medio.X - (dx * textSize.Width));
-            int perpendicularY = (int)(medio.Y - (dy * textSize.Height));
-            
-            //Dubujo de la arista
-
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            pen.StartCap = LineCap.Flat;
+            //Dibujo de arista
+            pen.StartCap = LineCap.Flat; //indica como sera el inicio de la linea
             pen.CustomEndCap = flecha; //Crea la cabeza de la flecha
 
-            // Dibujar la arista arqueada
-            path.Reset();
-            path.AddBezier(n1.Centro, medio, medio, end);
+            Point perpendicular = new Point((int)(medio.X - dx * altura), (int)(medio.Y - dy * altura));//Punto mas alto de la arista
+            path.Reset();//Reseteo el path
+            path.AddBezier(n1.Centro, perpendicular, perpendicular, end);
+            g.DrawPath(pen, path);//Dibujo la arista
 
-            g.DrawPath(pen, path);
-            
-            RectangleF r = new RectangleF(perpendicularX - 2, perpendicularY - 2, textSize.Width, textSize.Height);
-            g.DrawString(Valor, font, Brushes.Black, r);
+            //Angulo de la palabra
+            float nuevoangulo = ((angle >= -Math.PI && angle < -Math.PI / 2) || (angle >= Math.PI / 2 && angle <= Math.PI)) ? (float)(-Math.PI + angle) : (float)angle;
+            nuevoangulo = (float)(nuevoangulo * (180 / Math.PI));//Convierto el angulo a grados
+            int sep = 24; //Separacion entre cada palabra
+            StringFormat Formato = new StringFormat();//Formate de la cadena
+            Formato.Alignment = StringAlignment.Center; //Alinea en el centro horizontal
+            Formato.LineAlignment = StringAlignment.Center; //Alinea en el centro vertical
+
+            //Diubujo de los valores de la arista
+            for (int i = 0; i < valores.Count; i++)
+            {
+                string v = valores.ElementAt(i);
+                g.TranslateTransform((float)(medio.X - dx * (altura + sep * i)), (float)(medio.Y - dy * (altura + sep * i)));
+                g.RotateTransform((float)nuevoangulo);
+                g.DrawString(v, font, Brushes.Black, Point.Empty, Formato);
+                g.ResetTransform();
+            }
         }
 
-        public void DibujarBucle(Graphics g)
+        public void DibujarBucle(Graphics g)//Dibuja una arista con forma de bucle
         {
-            //Variables
             int altura = n1.Location.Y - (int)(NodoG.radio * 1.4);  // Ajusta el tamaño del bucle
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;///Mejora la calidad de la imagen
-            pen.CustomStartCap = flecha;
-            pen.EndCap = LineCap.Flat; //Crea la cabeza de la flecha
 
             // Dibujar un arco curvado
+            pen.CustomStartCap = flecha;
+            pen.EndCap = LineCap.Flat; //Crea la cabeza de la flecha
             path.Reset();
             Rectangle r = new Rectangle(n1.Location.X, altura, NodoG.radio * 2, NodoG.radio * 2);
             path.AddArc(r, 135, 270);
 
             g.DrawPath(pen, path);
 
-            // Dibujar el valor en el medio de la arista
-            SizeF textSize = g.MeasureString(Valor, font);
-            g.DrawString(Valor, font, Brushes.Black, n1.Centro.X - (textSize.Width / 2), altura - font.Size * 2);
-        }
-
-        public bool EstaDentro(Point click)
-        {
-            //La tolerancia es el segundo valor de la pluma (pen)
-            return path.IsOutlineVisible(click, new Pen(Color.Black, 10));
+            // Dibujar los valores en el medio de la arista
+            for(int i = 0; i < valores.Count; i++)
+            {
+                string v = valores.ElementAt(i);
+                SizeF textSize = g.MeasureString(v, font);
+                g.DrawString(v, font, Brushes.Black, n1.Centro.X - (textSize.Width / 2), altura - textSize.Height * (i + 1));
+            }
         }
     }
 }

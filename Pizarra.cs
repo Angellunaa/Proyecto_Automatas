@@ -16,14 +16,17 @@ namespace Proyecto_Automatas
         //Atributos
         private short estado = 1;//Indica que se esta haciendo en la pizarra
         private List<NodoG> listaNodos = new List<NodoG>();//Lista de nodos
+        private List<IArista> conexiones = new List<IArista>();//Lista de aristas
         private List<AristaG> listaAristas = new List<AristaG>();//Lista de aristas
-        private static string FolderPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//Directorio del proyecto
+        private static string? FolderPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//Directorio del proyecto
         public static Cursor Eliminar = new Cursor(FolderPath + "\\src\\Cursores\\Eliminar.cur");//Cursor para eliminar
         public static Cursor Agarrar = new Cursor(FolderPath + "\\src\\Cursores\\ManoCerrada.cur");//Cursor para agarrar objetos
+        public NodoG? NodoInicial = null;
 
         //Metodos Get y Set
         public short _estado { get { return estado; } set { estado = value; } }
         public List<AristaG> _listaAristas { get { return listaAristas; } set { listaAristas = value; } }
+        public List<IArista> _conexiones { get { return conexiones; } set { conexiones = value; } }
         public List<NodoG> _listaNodos { get { return listaNodos; } set { listaNodos = value; } }
 
 
@@ -48,15 +51,22 @@ namespace Proyecto_Automatas
                     NodoG nodo = new NodoG(e.Location);
                     listaNodos.Add(nodo);
                     Controls.Add(nodo);
-                    nodo.Dibujar();
+                    nodo.pizarra = this;//Le indica al nodo que esta contenido en esta pizarra
                     break;
 
                 case 3://Eliminar
+                    //listaAristas.Remove(a);
+                    AristaG? Borrar = null;
 
                     foreach(AristaG a in listaAristas)
                     {
-                        if (a.EstaDentro(e.Location)) listaAristas.Remove(a);
+                        if (a.EstaDentro(e.Location)) Borrar = a;
                         break;
+                    }
+
+                    if(Borrar is not null)
+                    {
+                       //falta borrar arista
                     }
 
                     Invalidate();
@@ -64,8 +74,33 @@ namespace Proyecto_Automatas
             }
         }
 
-        // ----------------------------------------------------------- Dibujo de Automata -----------------------------------------------------
+        // -------------------------------------------------------------- Dibujo de Automata ----------------------------------------------------------
         
+        private void Pizarra_Paint(object? sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;//Mejora la calidad de imagen
+
+            if (NodoInicial is not null)//Dibuja el nodo inicial
+            {
+                // Puntos del triangulo
+                Point[] puntos =
+                {
+                    new Point(NodoInicial.Centro.X-NodoG.radio, NodoInicial.Centro.Y),
+                    new Point(NodoInicial.Centro.X-NodoG.radio*2, NodoInicial.Centro.Y-NodoG.radio),
+                    new Point(NodoInicial.Centro.X-NodoG.radio*2, NodoInicial.Centro.Y+NodoG.radio)
+                };
+
+                g.DrawPolygon(new Pen(Brushes.Black, 2), puntos);
+            }
+            foreach (AristaG a in listaAristas)
+            {
+                if (a.Tipo == 0) a.DibujarLinea(g); //Linea
+                else if (a.Tipo == 1) a.DibujarArco(g);//Arco
+                else a.DibujarBucle(g); //Bucle
+            }
+        }
+
         protected override CreateParams CreateParams //Ayuda a minimizar el parpadeo
         {
             get
@@ -76,15 +111,5 @@ namespace Proyecto_Automatas
             }
         }
 
-        private void Pizarra_Paint(object? sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            foreach (AristaG a in listaAristas)
-            {
-                if (a.Tipo == 0) a.DibujarArco(g); //Linea
-                else if (a.Tipo == 1) a.DibujarArco(g);//Arco
-                else a.DibujarBucle(g); //Bucle
-            }
-        }        
     }
 }
