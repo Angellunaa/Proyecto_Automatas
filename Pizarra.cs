@@ -39,6 +39,7 @@ namespace Proyecto_Automatas
 
             //Suscribir a eventos
             MouseClick += Pizarra_MouseClick;
+            MouseMove += Pizarra_MouseMove;
             Paint += Pizarra_Paint;
         }
 
@@ -55,28 +56,49 @@ namespace Proyecto_Automatas
                     break;
 
                 case 3://Eliminar
-                    //listaAristas.Remove(a);
-                    AristaG? Borrar = null;
-
                     foreach(AristaG a in listaAristas)
                     {
-                        if (a.EstaDentro(e.Location)) Borrar = a;
-                        break;
+                        int val = a.EstaDentro(e.Location);
+                        if (val != -1)
+                        {
+                            if (a.path.Count() <= 2)
+                            {
+                                AristaG? ar = listaAristas.Find(arista => arista.NodoFinal == a.NodoInicio && arista.NodoInicio == a.NodoFinal);
+                                if (ar is not null) ar.Tipo = 0;
+                                listaAristas.Remove(a);
+                            }
+                            a.Eliminar(val);
+                            break;
+                        }
                     }
-
-                    if(Borrar is not null)
-                    {
-                       //falta borrar arista
-                    }
-
                     Invalidate();
                     break;
             }
         }
 
-        // -------------------------------------------------------------- Dibujo de Automata ----------------------------------------------------------
-        
-        private void Pizarra_Paint(object? sender, PaintEventArgs e)
+        private void Pizarra_MouseMove(object? sender, MouseEventArgs e)
+        {
+            if(estado == 3)
+            {
+                foreach (AristaG a in listaAristas)
+                {
+                    if (a.EstaDentro(e.Location) != -1)
+                    {
+                        Cursor = Eliminar;
+                        break;
+                    }
+                    else
+                    {
+                        Cursor = Cursors.Default;
+                    }
+                }
+            }
+            
+        }
+
+            // -------------------------------------------------------------- Dibujo de Automata ----------------------------------------------------------
+
+            private void Pizarra_Paint(object? sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;//Mejora la calidad de imagen

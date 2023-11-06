@@ -80,7 +80,7 @@ namespace Proyecto_Automatas
                     valor = string.IsNullOrWhiteSpace(valor)? "λ" : valor;
 
                     //Se crea una arista
-                    foreach(AristaG a in pizarra._listaAristas)
+                    foreach(AristaG a in pizarra._listaAristas) //Busca si la arista ya existe en la lista
                     {
                         if (a.NodoInicio == conectar && a.NodoFinal == this)
                         {
@@ -90,7 +90,7 @@ namespace Proyecto_Automatas
 
                     }
                     
-                    if (Existe is null) //Si no existe arista entionces crea una nueva
+                    if (Existe is null) //Si no existe arista entonces crea una nueva
                     {
                         AristaG nuevaarista = new AristaG(conectar, this, valor);
                         pizarra._listaAristas.Add(nuevaarista);
@@ -105,7 +105,7 @@ namespace Proyecto_Automatas
                     }
                     else //Si ya existe agrega el nuevo valor
                     {
-                        Existe.Valores.Add(valor);
+                        Existe.AgregarValor(valor);
                     }
 
                     conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
