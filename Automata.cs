@@ -8,12 +8,6 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Automatas
 {
-    public struct TripleValor
-    {
-        public string inicio;
-        public List<string> valor;
-        public string final;
-    }
     public class Automata
     {
         //Lista para almacenar las aristas, su nodo de inicio, nodo final, y los valores que 
@@ -47,8 +41,10 @@ namespace Proyecto_Automatas
             //Se busca las conexiones del nodo inicial 
             buscar_aristas(conexiones, nodo);
             string nueva = cadena;
+            //Evaluamos si el nodo es válido
             if (nodo != "")
             {
+                //Variable que nos indica si se ha llegado a final de la cadena
                 if (seguir)
                 {
                     //Si no hay aristas desde ese nodo, no se puede continuar
@@ -59,94 +55,126 @@ namespace Proyecto_Automatas
                         string valor = "";
                         foreach (AristaG str in conexiones)
                         {
+                            //Busca los valores que contiene el arista
                             foreach (string v in str.Valores)
                             {
-                                //Busca los valo
+                                //Si el valor es de longitud mayor a 1, y la cadena tiene 
+                                //la longitud necesaria para evaluarlos
                                 if (v.Length > 1 && (cadena.Length >= v.Length))
                                 {
                                     valor = cadena.Substring(0, v.Length);
                                 }
+                                //Si el valor del arista es lambda
                                 else if (v == "λ")
                                 {
                                     valor = "λ";
                                 }
+                                //Si la cadena es vacía
                                 else if (cadena.Equals(string.Empty))
                                 {
                                     valor = "";
                                 }
+                                //Si no se cumple ninguna de la condiciones,
+                                //Asignamos un solo caracter de la cadena
                                 else
                                 {
                                     valor = cadena[0].ToString();
                                 }
+                                //Si el valor que tomamos de la cadena, es igual al del arista
                                 if (valor == v)
                                 {
+                                    //Si el valor que tomamos fue lambda, asignamos una cadena vacía
                                     if (valor == "λ") valor = "";
+                                    //Indicamos que hubo una conexión
                                     c++;
-                                    if (cadena.Equals(string.Empty) || cadena.Length == valor.Length)
+                                    if (cadena.Length == valor.Length)
                                     {
+                                        //Si la longitud que tomamos es igual a la de la cadena
+                                        //No nos queda más por evaluar, entonces asignamos 
+                                        //que la nueva cadena es vacía
                                         nueva = "";
                                     }
                                     else
                                     {
+                                        //Si no es vacía, eliminamos el valor que tomamos de la cadena
+                                        //Para poder evaluar el resto de la cadena
                                         if (!string.IsNullOrEmpty(cadena) && cadena.Length > valor.Length)
                                         {
                                             nueva = cadena.Substring(valor.Length);
                                         }
                                     }
+                                    //Si la nueva cadena que nos queda evaluar, es vacía
                                     if (nueva.Length == 0)
                                     {
+                                        //Asignamos que llegamos al final de la cadena
                                         seguir = false;
                                     }
                                     else
                                     {
+                                        //Si aún no es vacía, indicamos que hay que seguir evaluando
                                         seguir = true;
                                     }
+                                    //Llamado a la función con el nuevo nodo, el resto de la cadena,
+                                    //la indicación de si se debe seguir evauando, y el número de conexiónes
+                                    //en 0
                                     Evaluar_Cadena(str.NodoFinal.Nombre, nueva, seguir, 0);
                                 }
                             }
                         }
+                        //Si no se pudo avanzar de nodo, y aún no se terminaba la cadena
                         if (c == 0)
                         {
-                            MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //Indicamos que la cadena no es aceptada
+                            MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                else if (conexiones.Count > 0)
-                {
-                    foreach(AristaG str in conexiones)
-                    {
-                        foreach(string v in str.Valores)
-                        {
-                            if(v == "λ")
-                            {
-                                Evaluar_Cadena(str.NodoFinal.Nombre, nueva, false, 0);
-                            }
-                        }
+                        //Si no hay aristas disponibles para avanzar de nodo y 
+                        //no habíamos llegado al final de la cadena
+                        MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
                 else
                 {
+                    //Si se ha llegado al final de la cadena
                     seguir = false;
+                    //Se busca la lista de nodos terminales si el nodo actual es final
                     foreach (string str in terminales)
                     {
                         if (nodo == str)
                         {
+                            //Si sí es terminal, aceptamos la cadena
                             seguir = true;
-                            MessageBox.Show("La cadena es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("La cadena es aceptada en el nodo: " + nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     if (!seguir)
                     {
-                        MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //Si no se encontró en los nodos terminales
+                        MessageBox.Show("La cadena no es aceptada en el nodo: " + nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    //Por último, también revisamos si el nodo tiene transiciones lambda
+                    if (conexiones.Count > 0)
+                    {
+                        foreach (AristaG str in conexiones)
+                        {
+                            foreach (string v in str.Valores)
+                            {
+                                if (v == "λ")
+                                {
+                                    //Se llama a la función, para evaluar si el nodo
+                                    //es final o no
+                                    Evaluar_Cadena(str.NodoFinal.Nombre, nueva, false, 0);
+                                }
+                            }
+                        }
                     }
                 }
             }
             else
             {
+                //Si el nodo es vacío
                 MessageBox.Show("No se ha indicado un nodo inicial", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
