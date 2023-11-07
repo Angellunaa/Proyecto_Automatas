@@ -55,9 +55,9 @@
             statusStrip1.Items.AddRange(new ToolStripItem[] { Barra_Archivo, Barra_Probar });
             statusStrip1.Location = new Point(0, 0);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Padding = new Padding(1, 0, 16, 0);
+            statusStrip1.Padding = new Padding(1, 0, 20, 0);
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(1135, 26);
+            statusStrip1.Size = new Size(1419, 32);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "Archivo";
             // 
@@ -68,25 +68,25 @@
             Barra_Archivo.Image = (Image)resources.GetObject("Barra_Archivo.Image");
             Barra_Archivo.ImageTransparentColor = Color.Magenta;
             Barra_Archivo.Name = "Barra_Archivo";
-            Barra_Archivo.Size = new Size(78, 24);
+            Barra_Archivo.Size = new Size(93, 29);
             Barra_Archivo.Text = "Archivo";
             // 
             // nuevoToolStripMenuItem
             // 
             nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            nuevoToolStripMenuItem.Size = new Size(145, 26);
+            nuevoToolStripMenuItem.Size = new Size(177, 34);
             nuevoToolStripMenuItem.Text = "Nuevo";
             // 
             // abrirToolStripMenuItem
             // 
             abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            abrirToolStripMenuItem.Size = new Size(145, 26);
+            abrirToolStripMenuItem.Size = new Size(177, 34);
             abrirToolStripMenuItem.Text = "Abrir";
             // 
             // guardarToolStripMenuItem
             // 
             guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            guardarToolStripMenuItem.Size = new Size(145, 26);
+            guardarToolStripMenuItem.Size = new Size(177, 34);
             guardarToolStripMenuItem.Text = "Guardar";
             // 
             // Barra_Probar
@@ -95,18 +95,19 @@
             Barra_Probar.Image = (Image)resources.GetObject("Barra_Probar.Image");
             Barra_Probar.ImageTransparentColor = Color.Magenta;
             Barra_Probar.Name = "Barra_Probar";
-            Barra_Probar.Size = new Size(72, 24);
+            Barra_Probar.Size = new Size(86, 29);
             Barra_Probar.Text = "Probar";
+            Barra_Probar.ButtonClick += Barra_Probar_ButtonClick;
             // 
             // TabEditor
             // 
             TabEditor.BackColor = Color.White;
             TabEditor.Controls.Add(Barra_Editor);
-            TabEditor.Location = new Point(4, 29);
-            TabEditor.Margin = new Padding(3, 4, 3, 4);
+            TabEditor.Location = new Point(4, 34);
+            TabEditor.Margin = new Padding(4, 5, 4, 5);
             TabEditor.Name = "TabEditor";
-            TabEditor.Padding = new Padding(3, 4, 3, 4);
-            TabEditor.Size = new Size(1127, 646);
+            TabEditor.Padding = new Padding(4, 5, 4, 5);
+            TabEditor.Size = new Size(1411, 811);
             TabEditor.TabIndex = 0;
             TabEditor.Text = "Editor";
             // 
@@ -115,11 +116,11 @@
             Barra_Editor.Dock = DockStyle.Top;
             Barra_Editor.ImageScalingSize = new Size(24, 24);
             Barra_Editor.Items.AddRange(new ToolStripItem[] { Editor_Seleccionar, Editor_Agregar, Editor_Eliminar, Editor_Conectar });
-            Barra_Editor.Location = new Point(3, 4);
+            Barra_Editor.Location = new Point(4, 5);
             Barra_Editor.Name = "Barra_Editor";
-            Barra_Editor.Padding = new Padding(1, 0, 16, 0);
+            Barra_Editor.Padding = new Padding(1, 0, 20, 0);
             Barra_Editor.RenderMode = ToolStripRenderMode.Professional;
-            Barra_Editor.Size = new Size(1121, 26);
+            Barra_Editor.Size = new Size(1403, 32);
             Barra_Editor.TabIndex = 0;
             Barra_Editor.Text = "Barra_Editor";
             // 
@@ -130,7 +131,7 @@
             Editor_Seleccionar.ImageTransparentColor = Color.Magenta;
             Editor_Seleccionar.Name = "Editor_Seleccionar";
             Editor_Seleccionar.ShowDropDownArrow = false;
-            Editor_Seleccionar.Size = new Size(89, 24);
+            Editor_Seleccionar.Size = new Size(104, 29);
             Editor_Seleccionar.Text = "Seleccionar";
             Editor_Seleccionar.Click += Editor_Seleccionar_Click;
             // 
@@ -141,7 +142,7 @@
             Editor_Agregar.ImageTransparentColor = Color.Magenta;
             Editor_Agregar.Name = "Editor_Agregar";
             Editor_Agregar.ShowDropDownArrow = false;
-            Editor_Agregar.Size = new Size(67, 24);
+            Editor_Agregar.Size = new Size(80, 29);
             Editor_Agregar.Text = "Agregar";
             Editor_Agregar.Click += Editor_Agregar_Click;
             // 
@@ -152,7 +153,7 @@
             Editor_Eliminar.ImageTransparentColor = Color.Magenta;
             Editor_Eliminar.Name = "Editor_Eliminar";
             Editor_Eliminar.ShowDropDownArrow = false;
-            Editor_Eliminar.Size = new Size(67, 24);
+            Editor_Eliminar.Size = new Size(78, 29);
             Editor_Eliminar.Text = "Eliminar";
             Editor_Eliminar.Click += Editor_Eliminar_Click;
             // 
@@ -163,7 +164,7 @@
             Editor_Conectar.ImageTransparentColor = Color.Magenta;
             Editor_Conectar.Name = "Editor_Conectar";
             Editor_Conectar.ShowDropDownArrow = false;
-            Editor_Conectar.Size = new Size(72, 24);
+            Editor_Conectar.Size = new Size(86, 29);
             Editor_Conectar.Text = "Conectar";
             Editor_Conectar.Click += Editor_Conectar_Click;
             // 
@@ -171,22 +172,23 @@
             // 
             TabEdicion.Controls.Add(TabEditor);
             TabEdicion.Dock = DockStyle.Fill;
-            TabEdicion.Location = new Point(0, 26);
-            TabEdicion.Margin = new Padding(3, 4, 3, 4);
+            TabEdicion.Location = new Point(0, 32);
+            TabEdicion.Margin = new Padding(4, 5, 4, 5);
             TabEdicion.Name = "TabEdicion";
             TabEdicion.SelectedIndex = 0;
-            TabEdicion.Size = new Size(1135, 679);
+            TabEdicion.Size = new Size(1419, 849);
             TabEdicion.TabIndex = 1;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1135, 705);
+            ClientSize = new Size(1419, 881);
             Controls.Add(TabEdicion);
             Controls.Add(statusStrip1);
             DoubleBuffered = true;
+            Margin = new Padding(4, 4, 4, 4);
             Name = "Form1";
             Text = "Diseñador";
             statusStrip1.ResumeLayout(false);

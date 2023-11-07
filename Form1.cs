@@ -36,7 +36,7 @@ namespace Proyecto_Automatas
             Editor_Agregar.BackColor = Color.Transparent;
             Editor_Eliminar.BackColor = Color.Transparent;
             Editor_Conectar.BackColor = Color.Transparent;
-            if(NodoG.conectar is not null)
+            if (NodoG.conectar is not null)
             {
                 NodoG.conectar.Dibujar();
                 NodoG.conectar = null;
@@ -81,5 +81,37 @@ namespace Proyecto_Automatas
         }
 
         protected override void OnPaint(PaintEventArgs e) { }
+
+        private void Barra_Probar_ButtonClick(object sender, EventArgs e)
+        {
+            List<string> t = new List<string>();
+            string n_inicial = "";
+            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
+            if (cadena.Equals(string.Empty))
+            {
+                cadena = "";
+            }
+            foreach (IArista item in pizarra._listaAristas)
+            {
+                if (item.NodoFinal.Final && !(t.Contains(item.NodoFinal.Nombre)))
+                {
+                    t.Add(item.NodoFinal.Nombre);
+                }
+                if (item.NodoInicio.Final && !(t.Contains(item.NodoInicio.Nombre)))
+                {
+                    t.Add(item.NodoInicio.Nombre);
+                }
+            }
+            if(pizarra.NodoInicial== null)
+            {
+                n_inicial = "";
+            }
+            else
+            {
+                n_inicial = pizarra.NodoInicial.Nombre;
+            }
+            Automata automata = new Automata(pizarra._listaAristas, t, n_inicial);
+            automata.Evaluar_Cadena(automata.inicial, cadena, true, 0);
+        }
     }
 }
