@@ -7,13 +7,13 @@
     <Compile Update="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MenuCNodo.cs">
+    <Compile Update="Graficos\MenuCNodo.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="NodoG.cs">
+    <Compile Update="Graficos\NodoG.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Pizarra.cs">
+    <Compile Update="Graficos\Pizarra.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

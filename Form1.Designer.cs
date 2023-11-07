@@ -97,6 +97,7 @@
             Barra_Probar.Name = "Barra_Probar";
             Barra_Probar.Size = new Size(72, 24);
             Barra_Probar.Text = "Probar";
+            Barra_Probar.ButtonClick += Barra_Probar_ButtonClick;
             // 
             // TabEditor
             // 

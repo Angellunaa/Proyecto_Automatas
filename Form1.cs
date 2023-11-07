@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
+using Proyecto_Automatas.Graficos;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Windows.Forms;
@@ -36,7 +37,7 @@ namespace Proyecto_Automatas
             Editor_Agregar.BackColor = Color.Transparent;
             Editor_Eliminar.BackColor = Color.Transparent;
             Editor_Conectar.BackColor = Color.Transparent;
-            if(NodoG.conectar is not null)
+            if (NodoG.conectar is not null)
             {
                 NodoG.conectar.Dibujar();
                 NodoG.conectar = null;
@@ -81,5 +82,38 @@ namespace Proyecto_Automatas
         }
 
         protected override void OnPaint(PaintEventArgs e) { }
+
+        private void Barra_Probar_ButtonClick(object sender, EventArgs e)
+        {
+            string n_inicial = "";
+            if (pizarra.NodoInicial is null)
+            {
+                MessageBox.Show("No se ha indicado un nodo inicial", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                n_inicial = pizarra.NodoInicial.Nombre;
+            }
+
+            Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), n_inicial);
+            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
+            if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
+            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
+
+            /*
+            List<string> t = new List<string>();
+            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
+            if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
+
+            foreach (INodo item in pizarra._listaNodos)
+            {
+                if (item.Final) t.Add(item.Nombre);
+            }
+
+            Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), t, n_inicial);
+            automata.Evaluar_Cadena(automata.inicial, cadena, true, 0);
+            */
+        }
     }
 }

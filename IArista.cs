@@ -14,6 +14,5 @@ namespace Proyecto_Automatas
     {
         public INodo NodoInicio { get; set; }
         public INodo NodoFinal { get; set; }
-        //public string Valor { get; set; }
     }
 }
