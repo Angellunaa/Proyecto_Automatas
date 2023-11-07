@@ -35,15 +35,18 @@ namespace Proyecto_Automatas
                 }
             }
         }
-        public void Evaluar_Cadena(string nodo, string cadena, bool seguir, int c)
+        public void Evaluar_Cadena(NodoG nodo, string cadena, bool seguir, int c)
         {
-            List<AristaG> conexiones = new List<AristaG>();
-            //Se busca las conexiones del nodo inicial 
-            buscar_aristas(conexiones, nodo);
-            string nueva = cadena;
             //Evaluamos si el nodo es válido
-            if (nodo != "")
+            if (nodo != null)
             {
+                nodo.ColorFondo = Color.LightGray;
+                nodo.Dibujar();
+                MessageBox.Show("Estado actual: " + nodo.Nombre + "\n Cadena: ' " + cadena + " '", "Recorrido", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                List<AristaG> conexiones = new List<AristaG>();
+                //Se busca las conexiones del nodo inicial 
+                buscar_aristas(conexiones, nodo.Nombre);
+                string nueva = cadena;
                 //Variable que nos indica si se ha llegado a final de la cadena
                 if (seguir)
                 {
@@ -117,7 +120,9 @@ namespace Proyecto_Automatas
                                     //Llamado a la función con el nuevo nodo, el resto de la cadena,
                                     //la indicación de si se debe seguir evauando, y el número de conexiónes
                                     //en 0
-                                    Evaluar_Cadena(str.NodoFinal.Nombre, nueva, seguir, 0);
+                                    nodo.ColorFondo = Color.Gold;
+                                    nodo.Dibujar();
+                                    Evaluar_Cadena(str.n2, nueva, seguir, 0);
                                 }
                             }
                         }
@@ -125,14 +130,22 @@ namespace Proyecto_Automatas
                         if (c == 0)
                         {
                             //Indicamos que la cadena no es aceptada
-                            MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            nodo.ColorFondo = Color.OrangeRed;
+                            nodo.Dibujar();
+                            MessageBox.Show("La cadena no es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            nodo.ColorFondo = Color.Gold;
+                            nodo.Dibujar();
                         }
                     }
                     else
                     {
                         //Si no hay aristas disponibles para avanzar de nodo y 
                         //no habíamos llegado al final de la cadena
-                        MessageBox.Show("La cadena no es aceptada en el nodo: "+nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        nodo.ColorFondo = Color.OrangeRed;
+                        nodo.Dibujar();
+                        MessageBox.Show("La cadena no es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        nodo.ColorFondo = Color.Gold;
+                        nodo.Dibujar();
                     }
                 }
                 else
@@ -142,17 +155,25 @@ namespace Proyecto_Automatas
                     //Se busca la lista de nodos terminales si el nodo actual es final
                     foreach (string str in terminales)
                     {
-                        if (nodo == str)
+                        if (nodo.Nombre == str)
                         {
                             //Si sí es terminal, aceptamos la cadena
                             seguir = true;
-                            MessageBox.Show("La cadena es aceptada en el nodo: " + nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            nodo.ColorFondo = Color.GreenYellow;
+                            nodo.Dibujar();
+                            MessageBox.Show("La cadena es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            nodo.ColorFondo = Color.Gold;
+                            nodo.Dibujar();
                         }
                     }
                     if (!seguir)
                     {
                         //Si no se encontró en los nodos terminales
-                        MessageBox.Show("La cadena no es aceptada en el nodo: " + nodo, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        nodo.ColorFondo = Color.OrangeRed;
+                        nodo.Dibujar();
+                        MessageBox.Show("La cadena no es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        nodo.ColorFondo = Color.Gold;
+                        nodo.Dibujar();
                     }
                     //Por último, también revisamos si el nodo tiene transiciones lambda
                     if (conexiones.Count > 0)
@@ -165,7 +186,7 @@ namespace Proyecto_Automatas
                                 {
                                     //Se llama a la función, para evaluar si el nodo
                                     //es final o no
-                                    Evaluar_Cadena(str.NodoFinal.Nombre, nueva, false, 0);
+                                    Evaluar_Cadena(str.n2, nueva, false, 0);
                                 }
                             }
                         }

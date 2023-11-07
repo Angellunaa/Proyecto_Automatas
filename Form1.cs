@@ -111,7 +111,7 @@ namespace Proyecto_Automatas
                 n_inicial = pizarra.NodoInicial.Nombre;
             }
             Automata automata = new Automata(pizarra._listaAristas, t, n_inicial);
-            automata.Evaluar_Cadena(automata.inicial, cadena, true, 0);
+            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, true, 0);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Proyecto_Automatas
     public class AristaG : IArista
     {
         //Atributos
-        private NodoG n1;
-        private NodoG n2;
+        public NodoG n1;
+        public NodoG n2;
         HashSet<string> valores = new HashSet<string>();
         public short Tipo; //0 linea, 1 Arco, 2 Bucle
 

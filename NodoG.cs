@@ -18,7 +18,7 @@ namespace Proyecto_Automatas
         private bool arrastrando = false;//Indica si el nodo esta siendo arrastrado
         
         //Atributos visuales
-        private Color ColorFondo;//Color del nodo
+        public Color ColorFondo;//Color del nodo
         private Pen pen; //Contorno del nodo
         private Point inicio; //Punto donde empezo a moverse el nodo
 
