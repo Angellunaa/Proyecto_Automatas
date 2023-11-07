@@ -13,16 +13,13 @@ namespace Proyecto_Automatas
         //Lista para almacenar las aristas, su nodo de inicio, nodo final, y los valores que 
         // almacena esa conexión
         public List<AristaG> valores { get; set; }
-        //Lista que almacena los nodos que son terminales
-        public List<string> terminales { get; set; }
 
         //Variable para indicar el estado inicial
         public string inicial;
-        public Automata(List<AristaG> v, List<string> t, string i)
+        public Automata(List<AristaG> v, string i)
         {
             //
             valores = v;
-            terminales = t;
             inicial = i;
         }
         public void buscar_aristas(List<AristaG> conexiones, string begin)
@@ -150,23 +147,16 @@ namespace Proyecto_Automatas
                 }
                 else
                 {
-                    //Si se ha llegado al final de la cadena
-                    seguir = false;
-                    //Se busca la lista de nodos terminales si el nodo actual es final
-                    foreach (string str in terminales)
+                    //Si el nodo actual es final
+                    if (nodo.Final)
                     {
-                        if (nodo.Nombre == str)
-                        {
-                            //Si sí es terminal, aceptamos la cadena
-                            seguir = true;
-                            nodo.ColorFondo = Color.GreenYellow;
-                            nodo.Dibujar();
-                            MessageBox.Show("La cadena es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            nodo.ColorFondo = Color.Gold;
-                            nodo.Dibujar();
-                        }
+                        nodo.ColorFondo = Color.GreenYellow;
+                        nodo.Dibujar();
+                        MessageBox.Show("La cadena es aceptada en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        nodo.ColorFondo = Color.Gold;
+                        nodo.Dibujar();
                     }
-                    if (!seguir)
+                    else
                     {
                         //Si no se encontró en los nodos terminales
                         nodo.ColorFondo = Color.OrangeRed;

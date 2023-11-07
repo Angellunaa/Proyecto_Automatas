@@ -91,17 +91,6 @@ namespace Proyecto_Automatas
             {
                 cadena = "";
             }
-            foreach (IArista item in pizarra._listaAristas)
-            {
-                if (item.NodoFinal.Final && !(t.Contains(item.NodoFinal.Nombre)))
-                {
-                    t.Add(item.NodoFinal.Nombre);
-                }
-                if (item.NodoInicio.Final && !(t.Contains(item.NodoInicio.Nombre)))
-                {
-                    t.Add(item.NodoInicio.Nombre);
-                }
-            }
             if(pizarra.NodoInicial== null)
             {
                 n_inicial = "";
@@ -110,7 +99,7 @@ namespace Proyecto_Automatas
             {
                 n_inicial = pizarra.NodoInicial.Nombre;
             }
-            Automata automata = new Automata(pizarra._listaAristas, t, n_inicial);
+            Automata automata = new Automata(pizarra._listaAristas, n_inicial);
             automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, true, 0);
         }
     }
