@@ -9,24 +9,18 @@ namespace Proyecto_Automatas
 {
     public partial class Form1 : Form
     {
-        /*  Estado para pizarra
-            1.- Seleccionar
-            2.- Agregar
-            3.- Eliminar
-            4.- Conectar
-         */
-
         //Atributos
         private Pizarra pizarra;
+        public short Seccion { get; set; }//Determina que seccion se eligio en el menu
 
         //Metodos
-        public Form1()//Constructor
+        public Form1(short seccion)//Constructor
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;//Abre la pantalla completa al inicializar la aplicacion
-            Editor_Seleccionar.BackColor = Color.SkyBlue;
-            pizarra = new Pizarra();//Creo la pizarra
+            Seccion = seccion;
+            pizarra = new Pizarra(seccion);//Creo la pizarra
             TabEditor.Controls.Add(pizarra);//Agrego la pizarra
+            Editor_Seleccionar.BackColor = Color.SkyBlue;//Se activa el boton seleccionar por defecto
         }
 
         // ---------------------------------- Botones de edicion ----------------------------------
@@ -81,11 +75,8 @@ namespace Proyecto_Automatas
             Editor_Conectar.BackColor = Color.SkyBlue;
         }
 
-        protected override void OnPaint(PaintEventArgs e) { }
-
         private void Barra_Probar_ButtonClick(object sender, EventArgs e)
         {
-            string n_inicial = "";
             if (pizarra.NodoInicial is null)
             {
                 MessageBox.Show("No se ha indicado un nodo inicial", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -93,27 +84,17 @@ namespace Proyecto_Automatas
             }
             else
             {
-                n_inicial = pizarra.NodoInicial.Nombre;
+                Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), pizarra.NodoInicial);
+                string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
+                if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
+                automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
             }
-
-            Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), n_inicial);
-            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
-            if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
-            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
-
-            /*
-            List<string> t = new List<string>();
-            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
-            if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
-
-            foreach (INodo item in pizarra._listaNodos)
-            {
-                if (item.Final) t.Add(item.Nombre);
-            }
-
-            Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), t, n_inicial);
-            automata.Evaluar_Cadena(automata.inicial, cadena, true, 0);
-            */
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+        protected override void OnPaint(PaintEventArgs e) { }
     }
 }

@@ -13,35 +13,34 @@ namespace Proyecto_Automatas
     {
         //Lista para almacenar las aristas, su nodo de inicio, nodo final, y los valores que 
         // almacena esa conexión
-        public List<Transicion> Transiciones { get; set; }
+        private List<Transicion> Transiciones;
+        private INodo inicial;
+        
 
-        //Variable para indicar el estado inicial
-        public string inicial;
-
-        public Automata(List<Transicion> Transiciones, string ini)
+        public Automata(List<Transicion> Transiciones, INodo inicial)
         {
             this.Transiciones = Transiciones;
-            inicial = ini;
+            this.inicial = inicial;
         }
 
-        public void Evaluar_Cadena(INodo nodo, string cadena)//Evaluacion de DFA y NFA
+        public void Evaluar_Cadena(INodo estado, string cadena)//Evaluacion de DFA y NFA
         {
             if(string.IsNullOrEmpty(cadena))//Si la cadena es vacia
             {
                 foreach (Transicion trans in Transiciones)
                 {
-                    if (trans.NodoInicio == nodo && trans.Valor == "λ") //Si la transicion empieza en el nodo a evaluar y es lambda
+                    if (trans.NodoInicio == estado && trans.Valor == "λ") //Si la transicion empieza en el nodo a evaluar y es lambda
                     {
                         Evaluar_Cadena(trans.NodoFinal, cadena);
                     }
                 }
-                if (nodo.Final)
+                if (estado.Final)
                 {
-                    MessageBox.Show("La cadena es aceptada y acabo en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La cadena es aceptada y acabo en el nodo: " + estado.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("La cadena no fue aceptada y acabo en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La cadena no fue aceptada y acabo en el nodo: " + estado.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else//Si la cadena no es vacia
@@ -49,7 +48,7 @@ namespace Proyecto_Automatas
                 bool vacio = true;
                 foreach(Transicion trans in Transiciones)
                 {
-                    if (trans.NodoInicio == nodo) //Si la transicion empieza en el nodo a evaluar
+                    if (trans.NodoInicio == estado) //Si la transicion empieza en el nodo a evaluar
                     {
                         if (trans.Valor == "λ") Evaluar_Cadena(trans.NodoFinal, cadena);
                         else if (trans.Valor.Length <= cadena.Length)
@@ -63,7 +62,7 @@ namespace Proyecto_Automatas
                         }
                     }
                 }
-                if (vacio) MessageBox.Show("La cadena no fue aceptada y acabo en el VACIO en el nodo: " + nodo.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (vacio) MessageBox.Show("La cadena no fue aceptada y acabo en el VACIO en el nodo: " + estado.Nombre, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

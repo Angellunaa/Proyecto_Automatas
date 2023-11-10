@@ -61,13 +61,6 @@ namespace Proyecto_Automatas.Graficos
             else Tipo = 0;//Linea
         }
 
-        public bool EsIgual(AristaG otraArista)//Determina si dos aristas tienen nodo inicial y final igual
-        {
-            if (otraArista == null) { return false; }
-            else if (n1 == otraArista.n1 && n2 == otraArista.n2) return true;
-            else return false;
-        }
-
         public int EstaDentro(Point click)//Determina si se hace un clic sobre la arista
         {
             for (int i = 0; i < path.Count; i++)

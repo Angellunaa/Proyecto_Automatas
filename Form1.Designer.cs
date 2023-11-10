@@ -42,6 +42,7 @@
             Editor_Eliminar = new ToolStripDropDownButton();
             Editor_Conectar = new ToolStripDropDownButton();
             TabEdicion = new TabControl();
+            Barra_Regresar = new ToolStripStatusLabel();
             statusStrip1.SuspendLayout();
             TabEditor.SuspendLayout();
             Barra_Editor.SuspendLayout();
@@ -52,7 +53,7 @@
             // 
             statusStrip1.Dock = DockStyle.Top;
             statusStrip1.ImageScalingSize = new Size(24, 24);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { Barra_Archivo, Barra_Probar });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { Barra_Archivo, Barra_Probar, Barra_Regresar });
             statusStrip1.Location = new Point(0, 0);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 16, 0);
@@ -74,19 +75,19 @@
             // nuevoToolStripMenuItem
             // 
             nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            nuevoToolStripMenuItem.Size = new Size(145, 26);
+            nuevoToolStripMenuItem.Size = new Size(224, 26);
             nuevoToolStripMenuItem.Text = "Nuevo";
             // 
             // abrirToolStripMenuItem
             // 
             abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            abrirToolStripMenuItem.Size = new Size(145, 26);
+            abrirToolStripMenuItem.Size = new Size(224, 26);
             abrirToolStripMenuItem.Text = "Abrir";
             // 
             // guardarToolStripMenuItem
             // 
             guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            guardarToolStripMenuItem.Size = new Size(145, 26);
+            guardarToolStripMenuItem.Size = new Size(224, 26);
             guardarToolStripMenuItem.Text = "Guardar";
             // 
             // Barra_Probar
@@ -96,6 +97,7 @@
             Barra_Probar.ImageTransparentColor = Color.Magenta;
             Barra_Probar.Name = "Barra_Probar";
             Barra_Probar.Size = new Size(72, 24);
+            Barra_Probar.Tag = "Ingresa una cadena para evaluar el automata";
             Barra_Probar.Text = "Probar";
             Barra_Probar.ButtonClick += Barra_Probar_ButtonClick;
             // 
@@ -179,6 +181,13 @@
             TabEdicion.Size = new Size(1135, 679);
             TabEdicion.TabIndex = 1;
             // 
+            // Barra_Regresar
+            // 
+            Barra_Regresar.Name = "Barra_Regresar";
+            Barra_Regresar.Size = new Size(67, 20);
+            Barra_Regresar.Text = "Regresar";
+            Barra_Regresar.ToolTipText = "Regresa al menu principal";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -190,6 +199,8 @@
             DoubleBuffered = true;
             Name = "Form1";
             Text = "Diseñador";
+            WindowState = FormWindowState.Maximized;
+            FormClosing += Form1_FormClosing;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             TabEditor.ResumeLayout(false);
@@ -216,5 +227,6 @@
         private TabControl TabEdicion;
         private ToolStripDropDownButton Editor_Eliminar;
         private ToolStripDropDownButton Editor_Conectar;
+        private ToolStripStatusLabel Barra_Regresar;
     }
 }

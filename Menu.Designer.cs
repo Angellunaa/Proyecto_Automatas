@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            BT_Sec_1 = new Button();
             label1 = new Label();
             label2 = new Label();
             BT_Ajustes = new PictureBox();
             BT_Salir = new PictureBox();
-            button2 = new Button();
+            BT_Sec_2 = new Button();
             label3 = new Label();
             textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)BT_Ajustes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BT_Salir).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // BT_Sec_1
             // 
-            button1.Location = new Point(14, 133);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(250, 210);
-            button1.TabIndex = 0;
-            button1.Text = "DFA y NFA";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            BT_Sec_1.Location = new Point(14, 133);
+            BT_Sec_1.Margin = new Padding(3, 4, 3, 4);
+            BT_Sec_1.Name = "BT_Sec_1";
+            BT_Sec_1.Size = new Size(250, 210);
+            BT_Sec_1.TabIndex = 0;
+            BT_Sec_1.Text = "Aceptadores finitos";
+            BT_Sec_1.UseVisualStyleBackColor = true;
+            BT_Sec_1.Click += BT_Sec_1_Click;
             // 
             // label1
             // 
@@ -96,15 +96,16 @@
             BT_Salir.TabStop = false;
             BT_Salir.Click += BT_Salir_Click;
             // 
-            // button2
+            // BT_Sec_2
             // 
-            button2.Location = new Point(317, 133);
-            button2.Margin = new Padding(3, 4, 3, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(250, 210);
-            button2.TabIndex = 5;
-            button2.Text = "DFA y NFA";
-            button2.UseVisualStyleBackColor = true;
+            BT_Sec_2.Location = new Point(317, 133);
+            BT_Sec_2.Margin = new Padding(3, 4, 3, 4);
+            BT_Sec_2.Name = "BT_Sec_2";
+            BT_Sec_2.Size = new Size(250, 210);
+            BT_Sec_2.TabIndex = 5;
+            BT_Sec_2.Text = "Aceptadores de pila";
+            BT_Sec_2.UseVisualStyleBackColor = true;
+            BT_Sec_2.Click += BT_Sec_2_Click;
             // 
             // label3
             // 
@@ -135,13 +136,14 @@
             ClientSize = new Size(818, 375);
             Controls.Add(textBox1);
             Controls.Add(label3);
-            Controls.Add(button2);
+            Controls.Add(BT_Sec_2);
             Controls.Add(BT_Salir);
             Controls.Add(BT_Ajustes);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(button1);
+            Controls.Add(BT_Sec_1);
             Name = "Menu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
             ((System.ComponentModel.ISupportInitialize)BT_Ajustes).EndInit();
             ((System.ComponentModel.ISupportInitialize)BT_Salir).EndInit();
@@ -151,12 +153,12 @@
 
         #endregion
 
-        private Button button1;
+        private Button BT_Sec_1;
         private Label label1;
         private Label label2;
         private PictureBox BT_Ajustes;
         private PictureBox BT_Salir;
-        private Button button2;
+        private Button BT_Sec_2;
         private Label label3;
         private TextBox textBox1;
     }

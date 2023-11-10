@@ -12,7 +12,7 @@ namespace Proyecto_Automatas
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.EnableVisualStyles();
-            Application.Run(new Form1());
+            Application.Run(new Menu());
         }
     }
 }

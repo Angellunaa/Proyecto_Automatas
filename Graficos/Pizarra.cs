@@ -22,15 +22,15 @@ namespace Proyecto_Automatas.Graficos
         public static Cursor Eliminar = new Cursor(FolderPath + "\\src\\Cursores\\Eliminar.cur");//Cursor para eliminar
         public static Cursor Agarrar = new Cursor(FolderPath + "\\src\\Cursores\\ManoCerrada.cur");//Cursor para agarrar objetos
         public NodoG? NodoInicial = null;
-
+        
         //Metodos Get y Set
         public short _estado { get { return estado; } set { estado = value; } }
         public List<AristaG> _listaAristas { get { return listaAristas; } set { listaAristas = value; } }
         public List<IArista> _conexiones { get { return conexiones; } set { conexiones = value; } }
         public List<NodoG> _listaNodos { get { return listaNodos; } set { listaNodos = value; } }
+        public short seccion { get;}
 
-
-        public Pizarra()//Contructor
+        public Pizarra(short seccion)//Contructor
         {
             //Propiedades del panel
             Location = new Point(3, 30);
@@ -41,6 +41,7 @@ namespace Proyecto_Automatas.Graficos
             MouseClick += Pizarra_MouseClick;
             MouseMove += Pizarra_MouseMove;
             Paint += Pizarra_Paint;
+            this.seccion = seccion;
         }
 
         private void Pizarra_MouseClick(object? sender, MouseEventArgs e)

@@ -106,8 +106,39 @@ namespace Proyecto_Automatas.Graficos
                 if (conectar != null)//Si ya existe un nodo elegido
                 {
                     AristaG? Existe = null;//Guarda si ya existe la arista
-                    string valor = Interaction.InputBox("Ingrese el valor para la arista:", "Valor de la arista", "λ");//Pregunta por valor de la arista
-                    valor = string.IsNullOrWhiteSpace(valor) ? "λ" : valor;
+                    string valor;
+                    if(pizarra.seccion == 1)
+                    {
+                        using (Input1 input = new Input1("Valor de la arista", "Ingrese el valor para la arista", ""))
+                        {
+                            if (input.DialogResult == DialogResult.OK) valor = input.getValor();
+                            else
+                            {
+                                conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
+                                conectar = null;
+                                return;//Ya no continua con el codigo
+                            }
+                        }
+                        valor = string.IsNullOrWhiteSpace(valor) ? "λ" : valor;
+                    }
+                    else
+                    {
+                        string [] valores;
+                        using (Input2 input = new Input2("Valor de la arista", "Ingrese los valores para la arista", ""))
+                        {
+                            if (input.DialogResult == DialogResult.OK) valores = input.getValores();
+                            else
+                            {
+                                conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
+                                conectar = null;
+                                return;//Ya no continua con el codigo
+                            }
+                        }
+                        valores[0] = string.IsNullOrWhiteSpace(valores[0]) ? "λ" : valores[0];
+                        valores[1] = string.IsNullOrWhiteSpace(valores[1]) ? "λ" : valores[1];
+                        valores[2] = string.IsNullOrWhiteSpace(valores[2]) ? "λ" : valores[2];
+                        valor = valores[0] + "," + valores[1] + ";" + valores[2];
+                    }
 
                     //Se crea una arista
                     foreach (AristaG a in pizarra._listaAristas) //Busca si la arista ya existe en la lista
@@ -117,7 +148,6 @@ namespace Proyecto_Automatas.Graficos
                             Existe = a;
                             break;
                         }
-
                     }
 
                     if (Existe is null) //Si no existe arista entonces crea una nueva
