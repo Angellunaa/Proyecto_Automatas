@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Windows.Forms;
@@ -91,7 +92,7 @@ namespace Proyecto_Automatas
             {
                 cadena = "";
             }
-            if(pizarra.NodoInicial== null)
+            if (pizarra.NodoInicial == null)
             {
                 n_inicial = "";
             }
@@ -99,8 +100,13 @@ namespace Proyecto_Automatas
             {
                 n_inicial = pizarra.NodoInicial.Nombre;
             }
+            // Llama al método DataBind     
             Automata automata = new Automata(pizarra._listaAristas, n_inicial);
-            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, true, 0);
+            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
+            dataGridView1.DataSource = automata.data;
+            dataGridView1.Dock = DockStyle.Right;
+            dataGridView1.Visible = true;
+
         }
     }
 }
