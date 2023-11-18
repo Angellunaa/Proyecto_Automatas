@@ -1,6 +1,6 @@
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
-using System.Data;
+using Proyecto_Automatas.Graficos;
 using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Windows.Forms;
@@ -9,24 +9,18 @@ namespace Proyecto_Automatas
 {
     public partial class Form1 : Form
     {
-        /*  Estado para pizarra
-            1.- Seleccionar
-            2.- Agregar
-            3.- Eliminar
-            4.- Conectar
-         */
-
         //Atributos
         private Pizarra pizarra;
+        public short Seccion { get; set; }//Determina que seccion se eligio en el menu
 
         //Metodos
-        public Form1()//Constructor
+        public Form1(short seccion)//Constructor
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;//Abre la pantalla completa al inicializar la aplicacion
-            Editor_Seleccionar.BackColor = Color.SkyBlue;
-            pizarra = new Pizarra();//Creo la pizarra
+            Seccion = seccion;
+            pizarra = new Pizarra(seccion);//Creo la pizarra
             TabEditor.Controls.Add(pizarra);//Agrego la pizarra
+            Editor_Seleccionar.BackColor = Color.SkyBlue;//Se activa el boton seleccionar por defecto
         }
 
         // ---------------------------------- Botones de edicion ----------------------------------
@@ -81,32 +75,49 @@ namespace Proyecto_Automatas
             Editor_Conectar.BackColor = Color.SkyBlue;
         }
 
-        protected override void OnPaint(PaintEventArgs e) { }
-
         private void Barra_Probar_ButtonClick(object sender, EventArgs e)
         {
-            List<string> t = new List<string>();
-            string n_inicial = "";
-            string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
-            if (cadena.Equals(string.Empty))
+            if (pizarra.NodoInicial is null)
             {
-                cadena = "";
-            }
-            if (pizarra.NodoInicial == null)
-            {
-                n_inicial = "";
+                MessageBox.Show("No se ha indicado un nodo inicial", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             else
             {
-                n_inicial = pizarra.NodoInicial.Nombre;
+                string cadena = Interaction.InputBox("Ingrese el valor para la cadena:", "Valor de la cadena", "");//Pregunta por valor de la cadena
+                if (string.IsNullOrWhiteSpace(cadena)) cadena = "";
+                if (pizarra.seccion == 1)
+                {
+                    Automata automata = new Automata(Transicion.Convertir(pizarra._listaAristas), pizarra.NodoInicial);
+                    automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
+                    using (Tabla_transiciones input = new Tabla_transiciones(cadena, automata.data)) ;
+                }
+                else
+                {
+                    bool op = false;
+                    using (Aceptar input = new Aceptar())
+                    {
+                        if (input.DialogResult == DialogResult.OK)
+                        {
+                            if (input.Get_aceptar() == 1)
+                            {
+                                op = true;
+                            }
+                        }
+                    }
+                    Pila automata = new Pila(Transicion.Convertir(pizarra._listaAristas), pizarra.NodoInicial, op);
+                    List<string> pila = new List<string>();
+                    pila.Add("Z");
+                    automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, pila);
+                    using (Tabla_transiciones input = new Tabla_transiciones(cadena, automata.data)) ;
+                }
             }
-            // Llama al método DataBind     
-            Automata automata = new Automata(pizarra._listaAristas, n_inicial);
-            automata.Evaluar_Cadena(pizarra.NodoInicial, cadena);
-            dataGridView1.DataSource = automata.data;
-            dataGridView1.Dock = DockStyle.Right;
-            dataGridView1.Visible = true;
-
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+        protected override void OnPaint(PaintEventArgs e) { }
     }
 }

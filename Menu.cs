@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Proyecto_Automatas
 {
@@ -16,6 +17,8 @@ namespace Proyecto_Automatas
         {
             InitializeComponent();
             this.CenterToScreen();
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         //funcion para Salir del Programa
@@ -30,10 +33,17 @@ namespace Proyecto_Automatas
             MessageBox.Show("Funcion no disponible por el momento");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BT_Sec_1_Click(object sender, EventArgs e)
         {
-            Form1 diseñor = new Form1();
-            diseñor.Show();
+            Form1 Seccion1 = new Form1(1);
+            Seccion1.Show();
+            this.Hide();
+        }
+
+        private void BT_Sec_2_Click(object sender, EventArgs e)
+        {
+            Form1 Seccion2 = new Form1(2);
+            Seccion2.Show();
             this.Hide();
         }
     }
