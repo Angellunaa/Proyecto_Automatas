@@ -18,7 +18,7 @@ namespace Proyecto_Automatas.Graficos
         private bool arrastrando = false;//Indica si el nodo esta siendo arrastrado
 
         //Atributos visuales
-        private Color ColorFondo;//Color del nodo
+        public Color ColorFondo;//Color del nodo
         private Pen pen; //Contorno del nodo
         private Point inicio; //Punto donde empezo a moverse el nodo
         private Label? nota;
@@ -31,8 +31,10 @@ namespace Proyecto_Automatas.Graficos
         //Metodos de la clase NodoG
         public Point Centro { get { return centro; } set { centro = value; } }
         public Label? Nota { get { return nota; } }
+        public static int Cont { get { return cont; } set { cont = value; } }
         public Pizarra pizarra { get; set; } //Guarda la pizarra en la que esta el nodo
         public static NodoG? conectar { get; set; } //Guarda el nodo a conectar
+        
 
         // -------------------------------------------------------------- Metodos de la clase NodoG ----------------------------------------------------------------
         public NodoG(Point coordenada) //Constructor
@@ -96,6 +98,12 @@ namespace Proyecto_Automatas.Graficos
                 nota.Dispose();
                 nota = null;
             }
+        }
+
+        public void AjustarCentro()
+        {
+            centro.X = Location.X + radio;
+            centro.Y = Location.Y + radio;
         }
 
         // ----------------------------------------------------------- Eventos para interactuar con un nodo ----------------------------------------------------------
@@ -208,8 +216,6 @@ namespace Proyecto_Automatas.Graficos
                 //Actualizo la posicion del control y del centro del nodo
                 Left = e.X + Left - inicio.X;
                 Top = e.Y + Top - inicio.Y;
-                centro.X = Location.X + radio;
-                centro.Y = Location.Y + radio;
                 if (nota is not null) nota.Location = new Point(centro.X - nota.Width / 2, centro.Y + radio);
                 pizarra.Invalidate();
             }

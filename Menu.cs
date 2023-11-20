@@ -16,7 +16,9 @@ namespace Proyecto_Automatas
         public Menu()
         {
             InitializeComponent();
-            this.CenterToScreen();
+            CenterToScreen();
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         //funcion para Salir del Programa
@@ -35,14 +37,14 @@ namespace Proyecto_Automatas
         {
             Form1 Seccion1 = new Form1(1);
             Seccion1.Show();
-            this.Hide();
+            Hide();
         }
 
         private void BT_Sec_2_Click(object sender, EventArgs e)
         {
             Form1 Seccion2 = new Form1(2);
             Seccion2.Show();
-            this.Hide();
+            Hide();
         }
     }
 }

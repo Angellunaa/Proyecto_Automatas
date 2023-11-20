@@ -32,7 +32,7 @@ namespace Proyecto_Automatas
             // 
             TB_Valor.Location = new Point(36, 80);
             TB_Valor.Name = "TB_Valor";
-            TB_Valor.Size = new Size(487, 34);
+            TB_Valor.Size = new Size(487, 29);
             TB_Valor.TabIndex = 0;
             TB_Valor.KeyPress += TB_Valor_KeyPress;
             // 
@@ -77,6 +77,7 @@ namespace Proyecto_Automatas
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Input1";
+            StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);
             PerformLayout();
         }

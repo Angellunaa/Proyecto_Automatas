@@ -42,10 +42,9 @@
             // 
             // BT_Sec_1
             // 
-            BT_Sec_1.Location = new Point(14, 133);
-            BT_Sec_1.Margin = new Padding(3, 4, 3, 4);
+            BT_Sec_1.Location = new Point(12, 100);
             BT_Sec_1.Name = "BT_Sec_1";
-            BT_Sec_1.Size = new Size(250, 210);
+            BT_Sec_1.Size = new Size(219, 158);
             BT_Sec_1.TabIndex = 0;
             BT_Sec_1.Text = "Aceptadores finitos";
             BT_Sec_1.UseVisualStyleBackColor = true;
@@ -55,9 +54,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Consolas", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(380, 9);
+            label1.Location = new Point(289, 7);
             label1.Name = "label1";
-            label1.Size = new Size(159, 36);
+            label1.Size = new Size(129, 28);
             label1.TabIndex = 1;
             label1.Text = "AUTOMATAS";
             // 
@@ -66,19 +65,18 @@
             label2.AutoSize = true;
             label2.Font = new Font("Consolas", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.ControlDarkDark;
-            label2.Location = new Point(39, 101);
+            label2.Location = new Point(34, 76);
             label2.Name = "label2";
-            label2.Size = new Size(207, 28);
+            label2.Size = new Size(160, 22);
             label2.TabIndex = 2;
             label2.Text = "Primera Seccion";
             // 
             // BT_Ajustes
             // 
             BT_Ajustes.Image = Properties.Resources.Ajustes;
-            BT_Ajustes.Location = new Point(730, 282);
-            BT_Ajustes.Margin = new Padding(3, 4, 3, 4);
+            BT_Ajustes.Location = new Point(639, 212);
             BT_Ajustes.Name = "BT_Ajustes";
-            BT_Ajustes.Size = new Size(64, 61);
+            BT_Ajustes.Size = new Size(56, 46);
             BT_Ajustes.SizeMode = PictureBoxSizeMode.Zoom;
             BT_Ajustes.TabIndex = 3;
             BT_Ajustes.TabStop = false;
@@ -87,10 +85,9 @@
             // BT_Salir
             // 
             BT_Salir.Image = Properties.Resources.Salir;
-            BT_Salir.Location = new Point(632, 282);
-            BT_Salir.Margin = new Padding(3, 4, 3, 4);
+            BT_Salir.Location = new Point(553, 212);
             BT_Salir.Name = "BT_Salir";
-            BT_Salir.Size = new Size(64, 61);
+            BT_Salir.Size = new Size(56, 46);
             BT_Salir.SizeMode = PictureBoxSizeMode.Zoom;
             BT_Salir.TabIndex = 4;
             BT_Salir.TabStop = false;
@@ -98,10 +95,9 @@
             // 
             // BT_Sec_2
             // 
-            BT_Sec_2.Location = new Point(317, 133);
-            BT_Sec_2.Margin = new Padding(3, 4, 3, 4);
+            BT_Sec_2.Location = new Point(277, 100);
             BT_Sec_2.Name = "BT_Sec_2";
-            BT_Sec_2.Size = new Size(250, 210);
+            BT_Sec_2.Size = new Size(219, 158);
             BT_Sec_2.TabIndex = 5;
             BT_Sec_2.Text = "Aceptadores de pila";
             BT_Sec_2.UseVisualStyleBackColor = true;
@@ -112,28 +108,29 @@
             label3.AutoSize = true;
             label3.Font = new Font("Consolas", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
             label3.ForeColor = SystemColors.ControlDarkDark;
-            label3.Location = new Point(345, 101);
+            label3.Location = new Point(302, 76);
             label3.Name = "label3";
-            label3.Size = new Size(207, 28);
+            label3.Size = new Size(160, 22);
             label3.TabIndex = 6;
             label3.Text = "Segunda Seccion";
             // 
             // textBox1
             // 
             textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Location = new Point(585, 133);
+            textBox1.Location = new Point(512, 100);
+            textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(221, 71);
+            textBox1.Size = new Size(193, 53);
             textBox1.TabIndex = 7;
-            textBox1.Text = "Elaborado por:\r\nAngel Gerado Luna Romo\r\nMiguel Aaron Ramires Sanchez";
+            textBox1.Text = "Elaborado por:\r\nAngel Gerado Luna Romo\r\nMiguel Aaron Ramirez Sanchez";
             // 
             // Menu
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.AliceBlue;
-            ClientSize = new Size(818, 375);
+            ClientSize = new Size(716, 281);
             Controls.Add(textBox1);
             Controls.Add(label3);
             Controls.Add(BT_Sec_2);
@@ -142,6 +139,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(BT_Sec_1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Menu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";

@@ -71,6 +71,30 @@ C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas fuc
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas fucion\obj\Debug\net6.0-windows\Proyecto_Automatas.pdb
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas fucion\obj\Debug\net6.0-windows\Proyecto_Automatas.genruntimeconfig.cache
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas fucion\obj\Debug\net6.0-windows\ref\Proyecto_Automatas.dll
-C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Graficos.Input1.resources
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Graficos.NodoG.resources
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Graficos.Input2.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Aceptar.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Form1.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Graficos.NodoG.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Input1.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Graficos.Input2.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Menu.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Properties.Resources.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.Tabla_transiciones.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.csproj.GenerateResource.cache
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.AssemblyInfoInputs.cache
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.AssemblyInfo.cs
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.csproj.CoreCompileInputs.cache
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.dll
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\refint\Proyecto_Automatas.dll
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.pdb
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\bin\Debug\net6.0-windows\Proyecto_Automatas.exe
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\bin\Debug\net6.0-windows\Proyecto_Automatas.deps.json
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\bin\Debug\net6.0-windows\Proyecto_Automatas.runtimeconfig.json
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\bin\Debug\net6.0-windows\Proyecto_Automatas.dll
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\bin\Debug\net6.0-windows\Proyecto_Automatas.pdb
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\Proyecto_Automatas.genruntimeconfig.cache
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\ref\Proyecto_Automatas.dll
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Aceptar.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Input1.resources

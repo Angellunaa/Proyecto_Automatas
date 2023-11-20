@@ -16,7 +16,6 @@ namespace Proyecto_Automatas.Graficos
         //Atributos
         private short estado = 1;//Indica que se esta haciendo en la pizarra
         private List<NodoG> listaNodos = new List<NodoG>();//Lista de nodos
-        private List<IArista> conexiones = new List<IArista>();//Lista de aristas
         private List<AristaG> listaAristas = new List<AristaG>();//Lista de aristas
         private static string? FolderPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//Directorio del proyecto
         public static Cursor Eliminar = new Cursor(FolderPath + "\\src\\Cursores\\Eliminar.cur");//Cursor para eliminar
@@ -26,7 +25,6 @@ namespace Proyecto_Automatas.Graficos
         //Metodos Get y Set
         public short _estado { get { return estado; } set { estado = value; } }
         public List<AristaG> _listaAristas { get { return listaAristas; } set { listaAristas = value; } }
-        public List<IArista> _conexiones { get { return conexiones; } set { conexiones = value; } }
         public List<NodoG> _listaNodos { get { return listaNodos; } set { listaNodos = value; } }
         public short seccion { get;}
 
@@ -36,6 +34,7 @@ namespace Proyecto_Automatas.Graficos
             Location = new Point(3, 30);
             Dock = DockStyle.Fill;
             Enabled = true;
+            AutoScroll = true;
 
             //Suscribir a eventos
             MouseClick += Pizarra_MouseClick;
@@ -107,6 +106,11 @@ namespace Proyecto_Automatas.Graficos
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;//Mejora la calidad de imagen
+
+            foreach (var n in listaNodos)
+            {
+                n.AjustarCentro();
+            }
 
             if (NodoInicial is not null)//Dibuja el nodo inicial
             {

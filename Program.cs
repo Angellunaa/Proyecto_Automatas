@@ -5,6 +5,9 @@ namespace Proyecto_Automatas
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        /// 
+        public static Menu menu = new Menu();
+
         [STAThread]
         static void Main()
         {
@@ -12,7 +15,7 @@ namespace Proyecto_Automatas
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.EnableVisualStyles();
-            Application.Run(new Menu());
+            Application.Run(menu);
         }
     }
 }

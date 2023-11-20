@@ -39,7 +39,7 @@ namespace Proyecto_Automatas.Graficos
             // 
             TB_Leer.Location = new Point(36, 80);
             TB_Leer.Name = "TB_Leer";
-            TB_Leer.Size = new Size(150, 34);
+            TB_Leer.Size = new Size(150, 29);
             TB_Leer.TabIndex = 0;
             TB_Leer.KeyPress += TB_Valor_KeyPress;
             // 
@@ -77,7 +77,7 @@ namespace Proyecto_Automatas.Graficos
             // 
             TB_Sacar.Location = new Point(208, 80);
             TB_Sacar.Name = "TB_Sacar";
-            TB_Sacar.Size = new Size(150, 34);
+            TB_Sacar.Size = new Size(150, 29);
             TB_Sacar.TabIndex = 4;
             TB_Sacar.KeyPress += TB_Sacar_KeyPress;
             // 
@@ -85,7 +85,7 @@ namespace Proyecto_Automatas.Graficos
             // 
             TB_Meter.Location = new Point(373, 80);
             TB_Meter.Name = "TB_Meter";
-            TB_Meter.Size = new Size(150, 34);
+            TB_Meter.Size = new Size(150, 29);
             TB_Meter.TabIndex = 5;
             TB_Meter.KeyPress += TB_Meter_KeyPress;
             // 
@@ -135,6 +135,7 @@ namespace Proyecto_Automatas.Graficos
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Input2";
+            StartPosition = FormStartPosition.CenterScreen;
             ResumeLayout(false);
             PerformLayout();
         }
