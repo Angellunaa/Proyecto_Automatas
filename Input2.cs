@@ -41,7 +41,7 @@ namespace Proyecto_Automatas.Graficos
             TB_Leer.Name = "TB_Leer";
             TB_Leer.Size = new Size(150, 29);
             TB_Leer.TabIndex = 0;
-            TB_Leer.KeyPress += TB_Valor_KeyPress;
+            TB_Leer.KeyDown += TB_Leer_KeyDown;
             // 
             // BT_Aceptar
             // 
@@ -79,7 +79,7 @@ namespace Proyecto_Automatas.Graficos
             TB_Sacar.Name = "TB_Sacar";
             TB_Sacar.Size = new Size(150, 29);
             TB_Sacar.TabIndex = 4;
-            TB_Sacar.KeyPress += TB_Sacar_KeyPress;
+            TB_Sacar.KeyDown += TB_Sacar_KeyDown;
             // 
             // TB_Meter
             // 
@@ -87,7 +87,7 @@ namespace Proyecto_Automatas.Graficos
             TB_Meter.Name = "TB_Meter";
             TB_Meter.Size = new Size(150, 29);
             TB_Meter.TabIndex = 5;
-            TB_Meter.KeyPress += TB_Meter_KeyPress;
+            TB_Meter.KeyDown += TB_Meter_KeyDown;
             // 
             // LB_Leer
             // 
@@ -168,28 +168,58 @@ namespace Proyecto_Automatas.Graficos
             Close();
         }
 
-        private void TB_Valor_KeyPress(object? sender, KeyPressEventArgs e)
+        private void TB_Leer_KeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Right))
+
+            if (e.KeyCode == Keys.Enter)
             {
                 TB_Sacar.Select();
             }
+            else if (e.KeyCode == Keys.Right)
+            {
+                if (TB_Leer.SelectionStart == TB_Leer.Text.Length)//Ultimo caracter
+                {
+                    TB_Sacar.Select();
+                }
+            }
+            
         }
 
-        private void TB_Sacar_KeyPress(object? sender, KeyPressEventArgs e)
+        private void TB_Sacar_KeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Right))
+            if (e.KeyCode == Keys.Enter)
             {
                 TB_Meter.Select();
             }
+            else if (e.KeyCode == Keys.Right)
+            {
+                if (TB_Sacar.SelectionStart == TB_Sacar.Text.Length)//Ultimo caracter
+                {
+                    TB_Meter.Select();
+                }
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                if (TB_Sacar.SelectionStart == 0)//Primer caracter
+                {
+                    TB_Leer.Select();
+                }
+            }
         }
 
-        private void TB_Meter_KeyPress(object? sender, KeyPressEventArgs e)
+        private void TB_Meter_KeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (e.KeyCode == Keys.Enter)
             {
                 DialogResult = DialogResult.OK;
                 Close();
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                if (TB_Meter.SelectionStart == 0)//Primer caracter
+                {
+                    TB_Sacar.Select();
+                }
             }
         }
     }

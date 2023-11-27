@@ -14,16 +14,28 @@ namespace Proyecto_Automatas
     public abstract class Automata
     {
         //Lista para almacenar las aristas, su nodo de inicio, nodo final, y los valores que almacena esa conexión
-        protected List<Transicion> Transiciones;
-        protected INodo inicial;
+        protected readonly List<Transicion> Transiciones;
+        protected readonly List<INodo> Nodos;
+        protected readonly INodo inicial;
         public DataTable data = new DataTable();
         protected int u;
+        public static bool continuar = false;
 
-        public Automata(List<Transicion> Transiciones, INodo inicial)
+        public Automata(List<Transicion> Transiciones, List<INodo> Nodos, INodo inicial)
         {
             u = 1;
             this.Transiciones = Transiciones;
             this.inicial = inicial;
+            this.Nodos = Nodos;
+        }
+
+        protected static void Esperar()
+        {
+            while (!continuar)
+            {
+                Application.DoEvents();
+            }
+            continuar = false;// Restablecer la bandera después de que el usuario presiona Continuar
         }
     }
 }

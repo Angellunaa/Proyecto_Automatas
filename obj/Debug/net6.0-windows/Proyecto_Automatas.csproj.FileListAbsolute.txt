@@ -98,3 +98,4 @@ C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-mai
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas-main\obj\Debug\net6.0-windows\ref\Proyecto_Automatas.dll
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Aceptar.resources
 C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.Input1.resources
+C:\Users\angel\OneDrive\Documentos\Universidad\Autómatas\Proyecto_Automatas\obj\Debug\net6.0-windows\Proyecto_Automatas.sourcelink.json

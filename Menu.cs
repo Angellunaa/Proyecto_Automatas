@@ -13,12 +13,15 @@ namespace Proyecto_Automatas
 {
     public partial class Menu : Form
     {
+        public Form1 Formulario;
+
         public Menu()
         {
             InitializeComponent();
             CenterToScreen();
             MaximizeBox = false;
             MinimizeBox = false;
+            Formulario = new Form1(1);
         }
 
         //funcion para Salir del Programa
@@ -35,15 +38,15 @@ namespace Proyecto_Automatas
 
         private void BT_Sec_1_Click(object sender, EventArgs e)
         {
-            Form1 Seccion1 = new Form1(1);
-            Seccion1.Show();
+            Formulario = new Form1(1);
+            Formulario.Show();
             Hide();
         }
 
         private void BT_Sec_2_Click(object sender, EventArgs e)
         {
-            Form1 Seccion2 = new Form1(2);
-            Seccion2.Show();
+            Formulario = new Form1(2);
+            Formulario.Show();
             Hide();
         }
     }

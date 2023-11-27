@@ -13,12 +13,12 @@ namespace Proyecto_Automatas.Graficos
     {
         //Atributos
         private Point centro;// Coordenadas del centro del nodo
-        public static int radio = 30; //Radio del círculo
+        public static readonly int radio = 30; //Radio del círculo
         private static int cont = 0; //Contador de nodos
         private bool arrastrando = false;//Indica si el nodo esta siendo arrastrado
 
         //Atributos visuales
-        public Color ColorFondo;//Color del nodo
+        private Color ColorFondo;//Color del nodo
         private Pen pen; //Contorno del nodo
         private Point inicio; //Punto donde empezo a moverse el nodo
         private Label? nota;
@@ -32,7 +32,7 @@ namespace Proyecto_Automatas.Graficos
         public Point Centro { get { return centro; } set { centro = value; } }
         public Label? Nota { get { return nota; } }
         public static int Cont { get { return cont; } set { cont = value; } }
-        public Pizarra pizarra { get; set; } //Guarda la pizarra en la que esta el nodo
+        public Pizarra? pizarra { get; set; } //Guarda la pizarra en la que esta el nodo
         public static NodoG? conectar { get; set; } //Guarda el nodo a conectar
         
 
@@ -72,7 +72,7 @@ namespace Proyecto_Automatas.Graficos
             Dispose();//Libero recursos del nodo
         }
 
-        public void CrearNota()
+        public void CrearNota()//Le crea un label (nota) al nodo
         {
             nota = new Label();
             nota.BackColor = Color.Gold;
@@ -84,14 +84,14 @@ namespace Proyecto_Automatas.Graficos
             nota.BringToFront();
         }
 
-        public void EditarNota(string texto)
+        public void EditarNota(string texto)//Edita el texto de la nota
         {
             if (nota is null) CrearNota();//Si no existe la crea
             nota.Text = texto;
             nota.Location = new Point(centro.X - nota.Width / 2, centro.Y + radio);
         }
 
-        public void EliminarNota()
+        public void EliminarNota()//Quita la nota del nodo
         {
             if (nota is not null)
             {
@@ -100,13 +100,15 @@ namespace Proyecto_Automatas.Graficos
             }
         }
 
-        public void AjustarCentro()
+        public void AjustarCentro()//Indica el centro del nodo con respecto a location
         {
             centro.X = Location.X + radio;
             centro.Y = Location.Y + radio;
         }
 
         // ----------------------------------------------------------- Eventos para interactuar con un nodo ----------------------------------------------------------
+
+        #region Eventos
         public void Ctr_MouseClick(object? sender, MouseEventArgs e)
         {
             if (pizarra._estado == 4)//Agregar arista
@@ -122,7 +124,7 @@ namespace Proyecto_Automatas.Graficos
                             if (input.DialogResult == DialogResult.OK) valor = input.getValor();
                             else
                             {
-                                conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
+                                conectar.Dibujar();//Dibuja el nodo en su color original
                                 conectar = null;
                                 return;//Ya no continua con el codigo
                             }
@@ -137,7 +139,7 @@ namespace Proyecto_Automatas.Graficos
                             if (input.DialogResult == DialogResult.OK) valores = input.getValores();
                             else
                             {
-                                conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
+                                conectar.Dibujar();//Dibuja el nodo en su color original
                                 conectar = null;
                                 return;//Ya no continua con el codigo
                             }
@@ -145,7 +147,7 @@ namespace Proyecto_Automatas.Graficos
                         valores[0] = string.IsNullOrWhiteSpace(valores[0]) ? "λ" : valores[0];
                         valores[1] = string.IsNullOrWhiteSpace(valores[1]) ? "λ" : valores[1];
                         valores[2] = string.IsNullOrWhiteSpace(valores[2]) ? "λ" : valores[2];
-                        valor = valores[0] + "," + valores[1] + ";" + valores[2];
+                        valor = valores[0] + "ǁ" + valores[1] + "ǁ" + valores[2];
                     }
 
                     //Se crea una arista
@@ -176,7 +178,7 @@ namespace Proyecto_Automatas.Graficos
                         Existe.AgregarValor(valor);
                     }
 
-                    conectar.Dibujar(ColorFondo);//Dibuja el nodo en su color original
+                    conectar.Dibujar();//Dibuja el nodo en su color original
                     pizarra.Invalidate();//Dibuja las aristas
                     conectar = null;
                 }
@@ -231,11 +233,13 @@ namespace Proyecto_Automatas.Graficos
                 if (pizarra._estado == 1)//Se dejo de arrastrar
                 {
                     arrastrando = false;
-                    Dibujar(ColorFondo);//Cambia a su color anterior
+                    Dibujar();//Cambia a al color de fondo
                 }
                 else if (pizarra._estado == 3) Eliminar(); //Eliminar nodo
             }
         }
+        
+        #endregion
 
         //------------------------------------------------------------- Metodos de dibujo -------------------------------------------------------------------------
 

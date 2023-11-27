@@ -99,6 +99,7 @@ namespace Proyecto_Automatas.Graficos
         }
 
         //------------------------------------------------------------- Metodos de dibujo -------------------------------------------------------------------------
+        #region Dibujo
 
         public void DibujarLinea(Graphics g)//Dibuja una arista con forma lineal
         {
@@ -141,6 +142,7 @@ namespace Proyecto_Automatas.Graficos
             for (int i = 0; i < valores.Count; i++)
             {
                 string v = valores.ElementAt(i);
+                v = v.Replace('ǁ',',');
                 PointF punto = new PointF((float)(medio.X - dx * (sep * i + sepin)), (float)(medio.Y - dy * (sep * i + sepin)));
                 g.TranslateTransform(punto.X, punto.Y);
                 g.RotateTransform(nuevoangulo);
@@ -193,6 +195,7 @@ namespace Proyecto_Automatas.Graficos
             for (int i = 0; i < valores.Count; i++)
             {
                 string v = valores.ElementAt(i);
+                v = v.Replace('ǁ', ',');
                 PointF punto = new PointF((float)(medio.X - dx * (altura + sep * i)), (float)(medio.Y - dy * (altura + sep * i)));
                 g.TranslateTransform(punto.X, punto.Y);
                 g.RotateTransform(nuevoangulo);
@@ -220,6 +223,7 @@ namespace Proyecto_Automatas.Graficos
             for (int i = 0; i < valores.Count; i++)
             {
                 string v = valores.ElementAt(i);
+                v = v.Replace('ǁ', ',');
                 SizeF textSize = g.MeasureString(v, font);
                 PointF punto = new PointF((float)(n1.Centro.X - textSize.Width / 2), (float)(altura - textSize.Height * (i + 1)));
                 g.DrawString(v, font, Brushes.Black, punto);
@@ -227,5 +231,7 @@ namespace Proyecto_Automatas.Graficos
                 path.ElementAt(i + 1).AddString(v, font.FontFamily, 0, font.Size, punto, null);
             }
         }
+
+        #endregion
     }
 }

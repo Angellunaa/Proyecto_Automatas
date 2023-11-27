@@ -42,6 +42,7 @@
             // 
             // BT_Sec_1
             // 
+            BT_Sec_1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             BT_Sec_1.Location = new Point(12, 100);
             BT_Sec_1.Name = "BT_Sec_1";
             BT_Sec_1.Size = new Size(219, 158);
@@ -65,7 +66,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Consolas", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.ControlDarkDark;
-            label2.Location = new Point(34, 76);
+            label2.Location = new Point(42, 76);
             label2.Name = "label2";
             label2.Size = new Size(160, 22);
             label2.TabIndex = 2;
@@ -95,6 +96,7 @@
             // 
             // BT_Sec_2
             // 
+            BT_Sec_2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             BT_Sec_2.Location = new Point(277, 100);
             BT_Sec_2.Name = "BT_Sec_2";
             BT_Sec_2.Size = new Size(219, 158);
@@ -108,7 +110,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Consolas", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
             label3.ForeColor = SystemColors.ControlDarkDark;
-            label3.Location = new Point(302, 76);
+            label3.Location = new Point(309, 76);
             label3.Name = "label3";
             label3.Size = new Size(160, 22);
             label3.TabIndex = 6;
@@ -117,6 +119,7 @@
             // textBox1
             // 
             textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Enabled = false;
             textBox1.Location = new Point(512, 100);
             textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Multiline = true;
