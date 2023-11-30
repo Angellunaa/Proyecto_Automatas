@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Proyecto_Automatas.Graficos;
 
@@ -29,10 +30,13 @@ namespace Proyecto_Automatas
             this.Nodos = Nodos;
         }
 
-        protected static void Esperar()
+        public abstract bool EsDeterminista();
+
+        protected static void Esperar(CancellationToken cancelacion)
         {
             while (!continuar)
             {
+                cancelacion.ThrowIfCancellationRequested();//Comprueba si se cancelo la tarea
                 Application.DoEvents();
             }
             continuar = false;// Restablecer la bandera después de que el usuario presiona Continuar

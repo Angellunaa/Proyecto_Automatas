@@ -17,9 +17,9 @@ namespace Proyecto_Automatas.Graficos
         private short estado = 1;//Indica que se esta haciendo en la pizarra
         private List<NodoG> listaNodos = new List<NodoG>();//Lista de nodos
         private List<AristaG> listaAristas = new List<AristaG>();//Lista de aristas
-        private static string? FolderPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//Directorio del proyecto
-        public static Cursor Eliminar = new Cursor(FolderPath + "\\src\\Cursores\\Eliminar.cur");//Cursor para eliminar
-        public static Cursor Agarrar = new Cursor(FolderPath + "\\src\\Cursores\\ManoCerrada.cur");//Cursor para agarrar objetos
+        private static readonly string? FolderPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);//Directorio del proyecto
+        public static readonly Cursor Eliminar = new Cursor(FolderPath + "\\src\\Cursores\\Eliminar.cur");//Cursor para eliminar
+        public static readonly Cursor Agarrar = new Cursor(FolderPath + "\\src\\Cursores\\ManoCerrada.cur");//Cursor para agarrar objetos
         public NodoG? NodoInicial = null;
         
         //Metodos Get y Set

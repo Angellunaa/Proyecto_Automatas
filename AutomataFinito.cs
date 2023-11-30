@@ -32,7 +32,7 @@ namespace Proyecto_Automatas
             return result.ToArray();
         }
 
-        public bool EsDeterminista()
+        public override bool EsDeterminista()
         {
             bool determinista;
             List<Transicion> temp;
@@ -100,7 +100,7 @@ namespace Proyecto_Automatas
             return false;
         }
 
-        public async Task Evaluar_Cadena(INodo estado, string cadena)//Evaluacion de DFA y NFA
+        public async Task Evaluar_Cadena(INodo estado, string cadena, CancellationToken cancelacion)//Evaluacion de DFA y NFA
         {
             List<string> rep = new List<string>();//Lista de strings para almacenar los posibles valores repetidos
 
@@ -112,7 +112,7 @@ namespace Proyecto_Automatas
             {
                 Program.menu.Formulario.SetDescripcion("Estado actual: " + n.Nombre + "\n Cadena actual:' " + cadena + "'");
             });
-            Esperar();// Pausa hasta que el usuario presiona el botón paso
+            Esperar(cancelacion);// Pausa hasta que el usuario presiona el botón paso
             n.Dibujar();
 
             if (string.IsNullOrEmpty(cadena))//Si la cadena es vacia
@@ -127,8 +127,8 @@ namespace Proyecto_Automatas
                     {
                         u++;
                         data.Rows.Add(u, "δ(" + estado.Nombre + ",λ)= " + trans.NodoFinal.Nombre, estado.Nombre, trans.NodoFinal.Nombre, "' '");
-                        //n.ColorFondo = Color.Gray; n.Dibujar();
-                        await Evaluar_Cadena(trans.NodoFinal, cadena);
+                        n.Dibujar(Color.Gray);
+                        await Evaluar_Cadena(trans.NodoFinal, cadena, cancelacion);
                     }
                 }
                 if (estado.Final)
@@ -140,7 +140,7 @@ namespace Proyecto_Automatas
                     {
                         Program.menu.Formulario.SetDescripcion("La cadena es aceptada y acabo en el nodo: " + estado.Nombre);
                     });
-                    Esperar();// Pausa hasta que el usuario presiona el botón paso
+                    Esperar(cancelacion);// Pausa hasta que el usuario presiona el botón paso
                     n.Dibujar();
                 }
                 else
@@ -152,7 +152,7 @@ namespace Proyecto_Automatas
                     {
                         Program.menu.Formulario.SetDescripcion("La cadena no fue aceptada y acabo en el nodo: " + estado.Nombre);
                     });
-                    Esperar();// Pausa hasta que el usuario presione el botón paso
+                    Esperar(cancelacion);// Pausa hasta que el usuario presione el botón paso
                     n.Dibujar();
                 }
             }
@@ -165,8 +165,8 @@ namespace Proyecto_Automatas
                     {
                         if (trans.Valor == "λ")
                         {
-                            data.Rows.Add(u, "δ(" + estado.Nombre + "," + trans.Valor + ")= " + trans.NodoFinal.Nombre, estado.Nombre, trans.NodoFinal.Nombre, "' " + cadena + " '");
-                            await Evaluar_Cadena(trans.NodoFinal, cadena);
+                            data.Rows.Add(u, "δ(" + estado.Nombre + "," + trans.Valor + ") = " + trans.NodoFinal.Nombre, estado.Nombre, trans.NodoFinal.Nombre, "' " + cadena + " '");
+                            await Evaluar_Cadena(trans.NodoFinal, cadena, cancelacion);
                             u++;
                         }
                         else if (trans.Valor.Length <= cadena.Length)
@@ -180,23 +180,24 @@ namespace Proyecto_Automatas
                                     if (!rep.Contains(sub)) rep.Add(sub);
                                     else u++;
                                 }
-                                data.Rows.Add(u, "δ(" + estado.Nombre + "," + trans.Valor + ")= " + trans.NodoFinal.Nombre, estado.Nombre, trans.NodoFinal.Nombre, "' " + cadena + " '");
-                                await Evaluar_Cadena(trans.NodoFinal, cadena.Substring(trans.Valor.Length));
+                                data.Rows.Add(u, "δ(" + estado.Nombre + "," + trans.Valor + ") = " + trans.NodoFinal.Nombre, estado.Nombre, trans.NodoFinal.Nombre, "' " + cadena + " '");
+                                await Evaluar_Cadena(trans.NodoFinal, cadena.Substring(trans.Valor.Length), cancelacion);
                                 vacio = false;
                             }
                         }
                     }
                 }
+
                 if (vacio)
                 {
-                    data.Rows.Add(u, "δ(" + estado.Nombre + "," + cadena + ")= ∅", estado.Nombre, estado.Nombre, "' " + cadena + " '");
+                    data.Rows.Add(u, "δ(" + estado.Nombre + "," + cadena + ") = ∅", estado.Nombre, estado.Nombre, "' " + cadena + " '");
                     n.Dibujar(Color.DarkGray);
                     // Actualizar el formulario desde el hilo de la interfaz de usuario
                     Program.menu.Formulario.Invoke((MethodInvoker)delegate
                     {
                         Program.menu.Formulario.SetDescripcion("La cadena no fue aceptada y acabó en el VACIO en el nodo: " + estado.Nombre);
                     });
-                    Esperar();// Pausa hasta que el usuario presione el botón paso
+                    Esperar(cancelacion);// Pausa hasta que el usuario presione el botón paso
                     n.Dibujar();
                 }
             }

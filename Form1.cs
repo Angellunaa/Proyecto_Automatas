@@ -13,7 +13,7 @@ namespace Proyecto_Automatas
     public partial class Form1 : Form
     {
         //Atributos
-        private Pizarra pizarra;
+        private readonly Pizarra pizarra;
         public bool continuar = false;
         public short Seccion { get; set; }//Determina que seccion se eligio en el menu
         private CancellationTokenSource? TokenCancel;
@@ -74,7 +74,14 @@ namespace Proyecto_Automatas
                     }
                     AutomataPila automata = new AutomataPila(Transicion.Convertir(pizarra._listaAristas), Nodos, pizarra.NodoInicial, op);
                     List<string> pila = new List<string>() { "Z" };
-                    //automata.EsAceptada(pizarra.NodoInicial, cadena, pila);
+                    if (automata.EsAceptada(pizarra.NodoInicial, cadena,pila))
+                    {
+                        MessageBox.Show("La cadena fue ACEPTADA", "Evaluar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("La cadena fue RECHAZADA", "Evaluar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -116,8 +123,15 @@ namespace Proyecto_Automatas
                         TLP_Pasos.Controls.Add(pizarra, 1, 0);
                         pizarra._estado = 0;
                     });
-                    await Task.Run(() => automata.Evaluar_Cadena(pizarra.NodoInicial, cadena),TokenCancel.Token);
-                    Invoke((MethodInvoker)delegate { DGV_Tabla_Transiciones.DataSource = automata.data; });
+                    try
+                    {
+                        await Task.Run(() => automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, TokenCancel.Token), TokenCancel.Token);
+                        Invoke((MethodInvoker)delegate { DGV_Tabla_Transiciones.DataSource = automata.data; });
+                    }
+                    catch(OperationCanceledException ex)
+                    {
+                        Console.WriteLine("Se cancelo la tarea: "+ ex.Message);
+                    }
                 }
                 else
                 {
@@ -143,8 +157,16 @@ namespace Proyecto_Automatas
                         TLP_Pasos.Controls.Add(pizarra, 1, 0);
                     });
                     pizarra._estado = 0;
-                    await Task.Run(() => automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, pila), TokenCancel.Token);
-                    Invoke((MethodInvoker)delegate { DGV_Tabla_Transiciones.DataSource = automata.data; });
+                    try
+                    {
+                        await Task.Run(() => automata.Evaluar_Cadena(pizarra.NodoInicial, cadena, pila, TokenCancel.Token), TokenCancel.Token);
+                        Invoke((MethodInvoker)delegate { DGV_Tabla_Transiciones.DataSource = automata.data; });
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+                        Console.WriteLine("Se cancelo la tarea: " + ex.Message);
+                    }
+                    
                 }
             }
         }
@@ -159,31 +181,13 @@ namespace Proyecto_Automatas
             else
             {
                 List<INodo> Nodos = pizarra._listaNodos.ConvertAll((n) => (INodo)n);
+                Automata automata;
 
-                if (Seccion == 1)
-                {
-                    AutomataFinito automata = new AutomataFinito(Transicion.Convertir(pizarra._listaAristas), Nodos, pizarra.NodoInicial);
-                    if (automata.EsDeterminista())
-                    {
-                        MessageBox.Show("El automata es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El automata no es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    AutomataPila automata = new AutomataPila(Transicion.Convertir(pizarra._listaAristas), Nodos, pizarra.NodoInicial, false);
-                    if (automata.EsDeterminista())
-                    {
-                        MessageBox.Show("El automata es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El automata no es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
+                if (Seccion == 1) automata = new AutomataFinito(Transicion.Convertir(pizarra._listaAristas), Nodos, pizarra.NodoInicial);
+                else automata = new AutomataPila(Transicion.Convertir(pizarra._listaAristas), Nodos, pizarra.NodoInicial, false);
+
+                if (automata.EsDeterminista()) MessageBox.Show("El automata es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("El automata no es determinista", "Determinismo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

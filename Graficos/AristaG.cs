@@ -19,15 +19,10 @@ namespace Proyecto_Automatas.Graficos
     public class AristaG : IArista
     {
         //Atributos
-        private NodoG n1;
-        private NodoG n2;
-        HashSet<string> valores = new HashSet<string>();
+        private readonly NodoG n1;
+        private readonly NodoG n2;
+        private HashSet<string> valores = new HashSet<string>();
         public short Tipo; //0 linea, 1 Arco, 2 Bucle
-
-        //Metodos de la interface
-        public INodo NodoInicio { get; set; }
-        public INodo NodoFinal { get; set; }
-        public HashSet<string> Valores { get { return valores; } set { value = valores; } }
 
         //Atributos graficos
         public List<GraphicsPath> path { get; set; }
@@ -39,12 +34,19 @@ namespace Proyecto_Automatas.Graficos
         private int tamletra;
         private AdjustableArrowCap flecha;
 
+        //Metodos de la interface
+        public INodo NodoInicio { get; set; }
+        public INodo NodoFinal { get; set; }
+
+        //Metodos Get y Set
+
+        public HashSet<string> Valores { get { return valores; }}
 
         public AristaG(NodoG nodoinicial, NodoG nodofinal, string valor)
         {
             NodoInicio = nodoinicial;
             NodoFinal = nodofinal;
-            Valores.Add(valor);
+            valores.Add(valor);
             grosor = 2;
             color = Color.Black;
             familiafuente = "Arial";

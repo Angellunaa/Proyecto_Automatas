@@ -282,8 +282,8 @@
             // TSMI_Regresar
             // 
             TSMI_Regresar.Name = "TSMI_Regresar";
-            TSMI_Regresar.Size = new Size(81, 24);
-            TSMI_Regresar.Text = "Regresar";
+            TSMI_Regresar.Size = new Size(138, 24);
+            TSMI_Regresar.Text = "Regresar al menú";
             TSMI_Regresar.ToolTipText = "Volver al menu principal";
             TSMI_Regresar.Click += TSMI_Regresar_Click;
             // 
